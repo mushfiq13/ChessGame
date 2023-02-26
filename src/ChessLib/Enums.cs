@@ -1,7 +1,7 @@
 ﻿namespace ChessLib;
 
 [System.Flags]
-public enum ChessPiece : byte
+public enum ChessPieceType : byte
 {
     King,
     Queen,
@@ -16,4 +16,30 @@ public enum ChessPieceColor : byte
 {
     White,
     Black
+}
+
+[System.Flags]
+public enum ChessBoardRanks : byte
+{
+    Zero,
+    First,
+    Second,
+    Third,
+    Fourth,
+    Fifth,
+    Sixth,
+    Seventh,
+}
+
+[System.Flags]
+public enum ChessBoardFiles : byte
+{
+    Zero,
+    First,
+    Second,
+    Third,
+    Fourth,
+    Fifth,
+    Sixth,
+    Seventh,
 }
