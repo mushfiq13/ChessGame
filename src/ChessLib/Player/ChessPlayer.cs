@@ -2,7 +2,7 @@
 
 public abstract class ChessPlayer : IChessPlayer
 {
-    public abstract ChessPieceColor PieceColor { get; }
+    public ChessPieceColor PieceColor { get; }
     public IChessPiece King { get; protected set; }
     public IChessPiece Queen { get; protected set; }
     public (IChessPiece, IChessPiece) Knight { get; protected set; }
@@ -10,8 +10,10 @@ public abstract class ChessPlayer : IChessPlayer
     public (IChessPiece, IChessPiece) Rook { get; protected set; }
     public IList<IChessPiece> Pawns { get; protected set; }
 
-    protected void Initialization(ChessPieceColor color)
+    public ChessPlayer(ChessPieceColor color)
     {
+        PieceColor = color;
+
         King = Factory.CreateKing(color);
         Queen = Factory.CreateQueen(color);
         Knight = (Factory.CreateKnight(color), Factory.CreateKnight(color));

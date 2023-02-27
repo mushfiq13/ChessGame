@@ -5,21 +5,19 @@ namespace ChessConsoleLibrary;
 public partial class ChessGenerator
 {
     private ChessBoard _chessBoard;
-    private BoardDisplayer _boardDisplayer;
     public bool IsGameRunning { get; protected set; } = false;
     public string? ChessWinner { get; protected set; } = null;
 
     public ChessGenerator()
     {
         _chessBoard = new();
-        _boardDisplayer = new(_chessBoard.Tiles);
     }
 
     public void Start()
     {
         IsGameRunning = true;
 
-        _boardDisplayer.ShowBoard();
+        BoardDisplayer.ShowBoard(_chessBoard.Tiles);
         (int file, int rank) = UserInput();
     }
 
