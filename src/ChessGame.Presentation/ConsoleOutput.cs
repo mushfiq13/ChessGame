@@ -1,12 +1,14 @@
-﻿using ChessLib;
+﻿using ChessGame.Domain;
 
-namespace ChessConsoleLibrary;
+namespace ChessGame.Presentation;
 
-internal class BoardDisplayer
+internal class ConsoleOutput
 {
-    public static void ShowBoard(in IChessPiece[,]? tiles)
+    private int _tileWidth { get; } = 5;
+
+    public void ShowBoard(in IChessPiece[,]? tiles)
     {
-        var totalRows = tiles.GetLength((int)ChessBoardFiles.Zero);
+        var totalRows = tiles.GetLength((int)ChessBoardFile.Zero);
         var totalCols = totalRows;
 
         for (var row = 0; row < totalRows; ++row)
@@ -20,26 +22,26 @@ internal class BoardDisplayer
 
                 SetTileColor(tiles[row, col], consoleBackgroundColor);
 
-                var output = FormatUnicode(tiles[row, col]?.Unicode, ChessBoard.TileWidth);
+                var output = FormatUnicode(tiles[row, col]?.Unicode, _tileWidth);
                 DisplayPieceOrNull(output);
             }
-            Console.WriteLine();
+            Console.Write("\r\n");
         }
 
         Console.WriteLine();
     }
 
-    private static void SetTileColor(IChessPiece piece, ConsoleColor consoleBackgroundColor = ConsoleColor.Green)
+    private void SetTileColor(IChessPiece piece, ConsoleColor consoleBackgroundColor = ConsoleColor.Green)
     {
         Console.BackgroundColor = consoleBackgroundColor;
         Console.ForegroundColor = piece?.Color is ChessPieceColor.White
             ? ConsoleColor.White : ConsoleColor.Black;
     }
 
-    private static string FormatUnicode(object unicode, int tileWidth)
+    private string FormatUnicode(object unicode, int tileWidth)
         => $"{new string(' ', tileWidth / 2)}{unicode ?? "."}{new string(' ', tileWidth / 2)}";
 
-    private static void DisplayPieceOrNull(object obj)
+    private void DisplayPieceOrNull(object obj)
     {
         Console.Write(obj);
 

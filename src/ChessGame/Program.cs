@@ -1,5 +1,6 @@
 ﻿
-using ChessConsoleLibrary;
+
+using ChessGame.Presentation;
 
 Console.OutputEncoding = System.Text.Encoding.UTF8;
 
