@@ -2,21 +2,27 @@
 
 public static class Factory
 {
-    public static IChessPiece CreateKing(ChessPieceColor color, int rank, int file)
-        => new KingModel(color, rank, file);
+    public static IChessPiece CreateWhiteKing() => new WhiteKing();
 
-    public static IChessPiece CreateQueen(ChessPieceColor color, int rank, int file)
-        => new QueenModel(color, rank, file);
+    public static IChessPiece CreateWhiteQueen() => new WhiteQueen();
 
-    public static IChessPiece CreateBishop(ChessPieceColor color, int rank, int file)
-        => new BishopModel(color, rank, file);
+    public static IChessPiece CreateWhiteBishop(int bishopPositionInFile) => new WhiteBishop(bishopPositionInFile);
 
-    public static IChessPiece CreateKnight(ChessPieceColor color, int rank, int file)
-        => new KnightModel(color, rank, file);
+    public static IChessPiece CreateWhiteRook(int rookPositionInFile) => new WhiteRook(rookPositionInFile);
 
-    public static IChessPiece CreateRook(ChessPieceColor color, int rank, int file)
-        => new RookModel(color, rank, file);
+    public static IChessPiece CreateWhiteKnight(int knightPositionInFile) => new WhiteKnight(knightPositionInFile);
 
-    public static IChessPiece CreatePawns(ChessPieceColor color, int rank, int file)
-        => new PawnsModel(color, rank, file);
+    public static IChessPiece CreateWhitePawn(int pawnPositionInFile) => new WhitePawn(pawnPositionInFile);
+
+    public static IChessPiece CreateBlackKing() => new BlackKing();
+
+    public static IChessPiece CreateBlackQueen() => new BlackQueen();
+
+    public static IChessPiece CreateBlackBishop(int bishopPositionInFile) => new BlackBishop(bishopPositionInFile);
+
+    public static IChessPiece CreateBlackRook(int rookPositionInFile) => new BlackRook(rookPositionInFile);
+
+    public static IChessPiece CreateBlackKnight(int knightPositionInFile) => new BlackKnight(knightPositionInFile);
+
+    public static IChessPiece CreateBlackPawn(int pawnPositionInFile) => new BlackPawn(pawnPositionInFile);
 }
