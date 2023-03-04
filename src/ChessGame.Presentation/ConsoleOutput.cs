@@ -1,28 +1,31 @@
-﻿using ChessGame.Domain;
+﻿namespace ChessGame.Presentation;
 
-namespace ChessGame.Presentation;
-
-internal class ConsoleOutput
+public class ConsoleOutput : IConsoleOutput
 {
     private int _tileWidth { get; } = 5;
 
-    public void ShowBoard(in IChessPiece[,]? tiles)
+    public void DisplayWelcome()
     {
-        var totalRows = tiles.GetLength((int)ChessBoardFile.Zero);
-        var totalCols = totalRows;
+        ConsoleIOMessager.WelcomeMessage();
+    }
 
-        for (var row = 0; row < totalRows; ++row)
+    public void ShowBoard(in object[,] tiles)
+    {
+        var totalRanks = tiles.GetLength(0);
+        var totalFiles = totalRanks;
+
+        for (var rank = 0; rank < totalRanks; ++rank)
         {
-            Console.Write($"Row {row}  ");
-            for (var col = 0; col < totalCols; col++)
+            Console.Write($"{rank}  ");
+            for (var file = 0; file < totalFiles; file++)
             {
-                var consoleBackgroundColor = ((row % 2 != 0 && col % 2 == 0)
-                    || (row % 2 == 0 && col % 2 != 0))
+                var consoleBackgroundColor = ((rank % 2 != 0 && file % 2 == 0)
+                    || (rank % 2 == 0 && file % 2 != 0))
                     ? ConsoleColor.Red : ConsoleColor.Green;
 
-                SetTileColor(tiles[row, col], consoleBackgroundColor);
+                SetTileColor(tiles[rank, file], consoleBackgroundColor);
 
-                var output = FormatUnicode(tiles[row, col]?.Unicode, _tileWidth);
+                var output = FormatUnicode(tiles[rank, file]?.GetType().GetProperty("Unicode").GetValue(tiles[rank, file]), _tileWidth);
                 DisplayPieceOrNull(output);
             }
             Console.Write("\r\n");
@@ -31,10 +34,10 @@ internal class ConsoleOutput
         Console.WriteLine();
     }
 
-    private void SetTileColor(IChessPiece piece, ConsoleColor consoleBackgroundColor = ConsoleColor.Green)
+    private void SetTileColor(object piece, ConsoleColor consoleBackgroundColor = ConsoleColor.Green)
     {
         Console.BackgroundColor = consoleBackgroundColor;
-        Console.ForegroundColor = piece?.Color is ChessPieceColor.White
+        Console.ForegroundColor = piece?.GetType().GetProperty("Color").GetValue(piece).ToString() == "White"
             ? ConsoleColor.White : ConsoleColor.Black;
     }
 

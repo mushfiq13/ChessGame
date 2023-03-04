@@ -1,11 +1,7 @@
-﻿
-
-using ChessGame.Presentation;
+﻿using ChessGame.Application;
 
 Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-Console.WriteLine("Welcome to Chess Game...\n");
+IChessManager manager = new ChessManager();
 
-ChessGenerator generator = new ChessGenerator();
-
-generator.Start();
+manager.Processor();

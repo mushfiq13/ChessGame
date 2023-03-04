@@ -2,34 +2,18 @@
 
 internal class ConsoleIOMessager
 {
-    public void RequestToSelectChess()
+    public static void WelcomeMessage()
     {
-        Console.WriteLine("Please select from which cell you want to move a chess...");
+        Console.WriteLine("Welcome to Chess Game...\n");
     }
 
-    public int RowColReader(string rowOrCol)
+    public void Message(string message)
     {
-
-        var result = -1;
-
-        while (result == -1)
-        {
-            Console.Write($"Select {rowOrCol} and press enter: ");
-
-            var input = Console.ReadLine();
-            var digit = input.ElementAtOrDefault(0);
-
-            if (input.Length > 1 || (digit < '0' || digit > '9'))
-                Console.WriteLine("Invalid Input! Please select the right one.");
-            else
-                result = digit - '0';
-        };
-
-        return result;
+        Console.WriteLine(message);
     }
 
-    public void RequestToMoveChess()
+    public void InvalidInputMessage()
     {
-        Console.WriteLine("Please select in which cell you want to move selected chess...");
+        Console.WriteLine("Invalid Input! Please give us the correct data.");
     }
 }

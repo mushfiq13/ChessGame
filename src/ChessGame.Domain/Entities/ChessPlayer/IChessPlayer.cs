@@ -9,7 +9,12 @@ public interface IChessPlayer
     IList<IChessPiece> Pawns { get; }
     IChessPiece Queen { get; }
     (IChessPiece, IChessPiece) Rook { get; }
-    bool IsResigned { get; set; }
-    bool IsWinner { get; set; }
-    bool IsCheckmate { get; set; }
+    bool IsWinner { get; }
+    bool IsCheckmate { get; }
+    bool IsResigned { get; }
+
+    void Resign();
+    void Winned();
+    void Checkmate();
+    void ClearCheckmate();
 }
