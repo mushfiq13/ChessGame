@@ -1,7 +1,7 @@
 ﻿namespace ChessGame.Domain;
 
 [Flags]
-public enum ChessPieceColor : byte
+public enum ChessColor : byte
 {
     White,
     Black

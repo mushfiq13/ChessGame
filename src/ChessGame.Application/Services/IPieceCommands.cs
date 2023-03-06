@@ -4,6 +4,6 @@ namespace ChessGame.Application;
 
 internal interface IPieceCommands
 {
-    void MovePiece(IChessPiece piece, int targetRank, int targetFile);
-    void KillPiece(IChessPiece piece);
+    void MovePiece(IChess piece, int targetRank, int targetFile);
+    void KillPiece(IChess piece);
 }

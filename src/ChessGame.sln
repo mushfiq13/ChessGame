@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChessGame.Domain", "ChessGa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChessGame.Application", "ChessGame.Application\ChessGame.Application.csproj", "{088E0CED-4CAB-47A7-B30D-B41232B7F0E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessGame.Presentation", "ChessGame.Presentation\ChessGame.Presentation.csproj", "{1866EADF-156F-4781-B9FC-35573FC684E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChessGame.Console", "ChessGame.Presentation\ChessGame.Console.csproj", "{1866EADF-156F-4781-B9FC-35573FC684E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

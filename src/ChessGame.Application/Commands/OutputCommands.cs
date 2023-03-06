@@ -17,7 +17,7 @@ internal class OutputCommands : IOutputCommands
         _consoleOutput.DisplayWelcome();
     }
 
-    public void DisplayTiles(in IChessPiece[,] tiles)
+    public void DisplayTiles(in IChess[,] tiles)
     {
         _consoleOutput.ShowBoard(tiles);
     }

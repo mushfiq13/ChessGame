@@ -2,24 +2,31 @@
 
 namespace ChessGame.Application;
 
-internal class PieceCommands : IPieceCommands
+internal class PieceCommands
 {
-    private readonly IChessRepositoryManager _repositoryManager;
+    private readonly IChessBoard _board;
 
-    public PieceCommands(IChessRepositoryManager repositoryManager)
+    public PieceCommands(IChessBoard board)
     {
-        _repositoryManager = repositoryManager;
+        _board = board;
     }
 
-    public void MovePiece(IChessPiece piece, int targetRank, int targetFile)
+    public bool Move(IChess item, int targetRank, int targetFile)
     {
-        _repositoryManager.MovePiece(piece, targetRank, targetFile);
-        piece.Move(targetRank, targetFile);
+        var moved = item.Move(_board.Tiles, targetRank, targetFile);
+
+        if (moved)
+        {
+            _board.Move(item, targetRank, targetFile);
+        }
+
+        return moved;
     }
 
-    public void KillPiece(IChessPiece piece)
+    public void Kill(IChess item)
     {
-        _repositoryManager.RemovePiece(piece.Position.Rank, piece.Position.File);
-        piece.Kill();
+        _board.Dead(item);
+
+        item.Kill();
     }
 }
