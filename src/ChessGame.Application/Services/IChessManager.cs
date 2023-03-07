@@ -1,6 +1,6 @@
 ﻿namespace ChessGame.Application;
 
-public interface IChessManager
+public interface IChessManager : IDisposable
 {
     bool IsGameRunning { get; }
 

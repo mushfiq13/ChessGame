@@ -21,4 +21,9 @@ internal class OutputCommands : IOutputCommands
     {
         _consoleOutput.DrawBoard(tiles);
     }
+
+    public void ResetConsole()
+    {
+        _consoleOutput.ResetConsole();
+    }
 }

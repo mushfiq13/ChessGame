@@ -42,13 +42,30 @@ public partial class ChessManager : IChessManager
         {
             _outputCommands.DrawTiles(Board.Tiles);
 
+            if (_currentPlayerColor == ChessColor.White)
+            {
+                _outputCommands.WriteMessage("\n  -> White Chess can be moved.\n");
+            }
+            else
+            {
+                _outputCommands.WriteMessage("\n  -> Black Chess can be moved.\n");
+            }
+
             (int srcRank, int srcFile, int targetRank, int targetFile) = AskUser();
+
+            if (Board.Tiles[srcRank, srcFile]?.Color != _currentPlayerColor)
+            {
+                _outputCommands.ResetConsole();
+                _outputCommands.WriteMessage("WARNING! you did not selected your piece! Try Again.");
+                Thread.Sleep(100);
+                continue;
+            }
 
             var success = _pieceCommands.Move(Board.Tiles[srcRank, srcFile], targetRank, targetFile);
 
             if (success == false)
             {
-                _outputCommands.WriteMessage("Sorry, your piece can not go to target tile!");
+                _outputCommands.WriteMessage("\nSorry, your piece can not go to target tile!");
                 _outputCommands.WriteMessage("Try Again :)");
 
                 ++_currentPlayerTriedToMove;
@@ -59,12 +76,23 @@ public partial class ChessManager : IChessManager
                     ? ChessColor.Black : ChessColor.White;
 
                 _currentPlayerTriedToMove = 0;
+                _outputCommands.ResetConsole();
+                Thread.Sleep(100);
             }
 
             if (_currentPlayerTriedToMove >= 50)
             {
-                _outputCommands.WriteMessage($"Hurray Winned!");
+                _outputCommands.WriteMessage($"You tried for last {_currentPlayerTriedToMove} times. You lost the game.");
             }
         }
+    }
+
+    public void Dispose()
+    {
+        Board = null;
+        _inputCommands = null;
+        _inputQueries = null;
+        _outputCommands = null;
+        _pieceCommands = null;
     }
 }

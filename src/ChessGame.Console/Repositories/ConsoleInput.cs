@@ -8,7 +8,6 @@ public class ConsoleInput : IConsoleInput
     {
         BreakLine();
         _iOMessager.Message(selectionMessage);
-        BreakLine();
 
         _iOMessager.Message("Select rank and press enter:");
         var rank = DigitReader();

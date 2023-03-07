@@ -2,6 +2,6 @@
 
 Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-IChessManager manager = new ChessManager();
+using IChessManager manager = new ChessManager();
 
 manager.Processor();

@@ -6,4 +6,5 @@ internal interface IOutputCommands
 {
     void WriteMessage(string message);
     void DrawTiles(in IChess[,] tiles);
+    void ResetConsole();
 }
