@@ -1,6 +1,6 @@
 ﻿namespace ChessGame.Domain;
 
-public interface IChessBase
+public interface IChessCore
 {
     ChessColor Color { get; }
     string Unicode { get; }

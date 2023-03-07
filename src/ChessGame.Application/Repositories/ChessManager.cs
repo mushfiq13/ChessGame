@@ -2,12 +2,12 @@
 
 namespace ChessGame.Application;
 
-public partial class ChessManager : IChessManager
+public partial class ChessManager : IChessGenerator
 {
     ChessColor _currentPlayerColor = ChessColor.White;
     int _currentPlayerTriedToMove = 0;
 
-    IChessBoard Board = Factory.CreateChessBoard();
+    IChessManager Board = Factory.CreateChessBoard();
     IInputQueries _inputQueries = Factory.CreateInputQueries();
     IInputCommands _inputCommands = Factory.CreateInputCommands();
     IOutputCommands _outputCommands = Factory.CreateOutputCommands();

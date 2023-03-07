@@ -5,8 +5,8 @@ namespace ChessGame.Application;
 
 internal static class Factory
 {
-    public static IChessBoard CreateChessBoard()
-        => new ChessBoard(new IChess[ChessConstants.RANKS, ChessConstants.FILES]);
+    public static IChessManager CreateChessBoard()
+        => new Domain.ChessManager(new IChess[ChessConstants.RANKS, ChessConstants.FILES]);
 
     public static T CreateChess<T>(ChessColor color, string unicode, int rank, int file)
         where T : IChess
@@ -19,7 +19,7 @@ internal static class Factory
         return (T)instance;
     }
 
-    public static IPieceCommands CreatePieceCommands(IChessBoard board) => new PieceCommands(board);
+    public static IPieceCommands CreatePieceCommands(IChessManager board) => new PieceCommands(board);
 
     public static IInputQueries CreateInputQueries() => new InputQueries();
 

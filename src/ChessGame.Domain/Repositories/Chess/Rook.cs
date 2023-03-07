@@ -7,12 +7,12 @@ public class Rook : Chess
     {
     }
 
-    public override bool IsMoveable(in IChessBase[,] tiles, int targetRank, int targetFile)
+    public override bool IsMoveable(in IChessCore[,] tiles, int targetRank, int targetFile)
     {
         // Find in which direction to go.
-        var xAxis = Rank == targetRank ? +0
-            : targetRank > Rank ? +1
-            : -1;
+        var xAxis = Rank == targetRank ? +0 // same rank
+            : targetRank > Rank ? +1 // upper rank
+            : -1; // lower rank
         var yAxis = File == targetFile ? +0
             : targetFile > File ? +1
             : -1;

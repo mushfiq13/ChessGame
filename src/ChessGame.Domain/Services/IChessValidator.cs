@@ -2,5 +2,5 @@
 
 public interface IChessValidator
 {
-    bool Validate(IChessBase chess);
+    bool Validate(IChessCore item);
 }

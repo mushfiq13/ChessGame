@@ -10,7 +10,7 @@ public class Pawn : Chess
         _initialPosition = (rank, file);
     }
 
-    public override bool IsMoveable(in IChessBase[,] tiles, int targetRank, int targetFile)
+    public override bool IsMoveable(in IChessCore[,] tiles, int targetRank, int targetFile)
     {
         var (xAxis, yAxis) = GetWhichDirectionToMove();
 

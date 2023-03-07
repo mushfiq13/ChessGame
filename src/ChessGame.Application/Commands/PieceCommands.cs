@@ -4,9 +4,9 @@ namespace ChessGame.Application;
 
 internal class PieceCommands : IPieceCommands
 {
-    private readonly IChessBoard _board;
+    private readonly IChessManager _board;
 
-    public PieceCommands(IChessBoard board) => _board = board;
+    public PieceCommands(IChessManager board) => _board = board;
 
     public bool Move(IChess item, int targetRank, int targetFile)
     {

@@ -7,7 +7,7 @@ public class Bishop : Chess
     {
     }
 
-    public override bool IsMoveable(in IChess[,] tiles, int targetRank, int targetFile)
+    public override bool IsMoveable(in IChessCore[,] tiles, int targetRank, int targetFile)
     {
         // Bishop can go only to these directoins.
         var xAxis = new[] { +1, +1, -1, -1 };

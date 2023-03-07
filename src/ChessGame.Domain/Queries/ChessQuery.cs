@@ -2,7 +2,7 @@
 
 internal class ChessQuery
 {
-    public static bool FindChessCanMeetTarget(in IChessBase[,] tiles, (int rank, int file) source,
+    public static bool FindChessCanMeetTarget(in IChessCore[,] tiles, (int rank, int file) source,
        (int rank, int file) target, int[] xDirection, int[] yDirection)
     {
         var canGo = false;
@@ -16,7 +16,7 @@ internal class ChessQuery
         return canGo;
     }
 
-    public static bool FindChessCanMeetTarget(in IChessBase[,] tiles, (int rank, int file) source,
+    public static bool FindChessCanMeetTarget(in IChessCore[,] tiles, (int rank, int file) source,
        (int rank, int file) target, int xDirection, int yDirection)
     {
         // Source tile and Target tile can not be same.

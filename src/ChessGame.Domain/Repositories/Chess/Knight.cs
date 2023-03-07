@@ -7,7 +7,7 @@ public class Knight : Chess
     {
     }
 
-    public override bool IsMoveable(in IChessBase[,] tiles, int targetRank, int targetFile)
+    public override bool IsMoveable(in IChessCore[,] tiles, int targetRank, int targetFile)
     {
         // Knight can go only to these directions.
         var xAxis = new[] { +2, +1, -1, -2, -2, -1, +1, +2 };
