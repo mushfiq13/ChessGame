@@ -11,6 +11,7 @@ public partial class ChessManager : IChessManager
     IInputQueries _inputQueries = Factory.CreateInputQueries();
     IInputCommands _inputCommands = Factory.CreateInputCommands();
     IOutputCommands _outputCommands = Factory.CreateOutputCommands();
+    IChessQueries _chessQueries = Factory.CreateChessQueries();
 
     IPieceCommands _pieceCommands;
 
@@ -61,6 +62,8 @@ public partial class ChessManager : IChessManager
                 continue;
             }
 
+            var targetHasKing = _chessQueries.IsKing(Board.Tiles[targetRank, targetFile]);
+
             var success = _pieceCommands.Move(Board.Tiles[srcRank, srcFile], targetRank, targetFile);
 
             if (success == false)
@@ -72,10 +75,17 @@ public partial class ChessManager : IChessManager
             }
             else
             {
+                if (targetHasKing)
+                {
+                    _outputCommands.WriteMessage("\nHurray! You won the game...\n");
+                    IsGameRunning = false;
+                }
+
                 _currentPlayerColor = _currentPlayerColor == ChessColor.White
                     ? ChessColor.Black : ChessColor.White;
 
                 _currentPlayerTriedToMove = 0;
+
                 _outputCommands.ResetConsole();
                 Thread.Sleep(100);
             }
@@ -83,6 +93,7 @@ public partial class ChessManager : IChessManager
             if (_currentPlayerTriedToMove >= 50)
             {
                 _outputCommands.WriteMessage($"You tried for last {_currentPlayerTriedToMove} times. You lost the game.");
+                IsGameRunning = false;
             }
         }
     }
@@ -94,5 +105,6 @@ public partial class ChessManager : IChessManager
         _inputQueries = null;
         _outputCommands = null;
         _pieceCommands = null;
+        _chessQueries = null;
     }
 }

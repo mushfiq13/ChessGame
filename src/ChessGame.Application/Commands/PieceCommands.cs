@@ -16,7 +16,8 @@ internal class PieceCommands : IPieceCommands
         if (item.IsMoveable(_board.Tiles, targetRank, targetFile) is false)
             return false;
 
-        _board.Move(item, targetRank, targetFile);
+        _board.Remove(item);
+        _board.Set(item, targetRank, targetFile);
         item.Move(targetRank, targetFile);
 
         return true;

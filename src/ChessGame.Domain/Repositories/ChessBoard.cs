@@ -17,7 +17,7 @@ public class ChessBoard : IChessBoard
     public bool Contains(IChess item)
         => ChessQuery.IsChessLocationValid(item) && Tiles[item.Rank, item.File].Equals(item);
 
-    public void Move(IChess item, int targetRank, int targetFile) => Tiles[targetRank, targetFile] = item;
+    public void Set(IChess item, int targetRank, int targetFile) => Tiles[targetRank, targetFile] = item;
 
     public void Remove(IChess item)
     {
