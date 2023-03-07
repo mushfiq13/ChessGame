@@ -12,7 +12,6 @@ public partial class ChessManager : IChessManager
     IInputCommands _inputCommands = Factory.CreateInputCommands();
     IOutputCommands _outputCommands = Factory.CreateOutputCommands();
     IChessQueries _chessQueries = Factory.CreateChessQueries();
-
     IPieceCommands _pieceCommands;
 
     public bool IsGameRunning { get; private set; } = false;
@@ -79,6 +78,8 @@ public partial class ChessManager : IChessManager
                 {
                     _outputCommands.WriteMessage("\nHurray! You won the game...\n");
                     IsGameRunning = false;
+
+                    break;
                 }
 
                 _currentPlayerColor = _currentPlayerColor == ChessColor.White

@@ -2,12 +2,12 @@
 
 public class Pawn : Chess
 {
-    int _initialRank;
+    (int, int) _initialPosition;
 
     public Pawn(ChessColor color, string unicode, int rank, int file)
         : base(color, unicode, rank, file)
     {
-        _initialRank = rank;
+        _initialPosition = (rank, file);
     }
 
     public override bool IsMoveable(in IChess[,] tiles, int targetRank, int targetFile)
@@ -24,7 +24,7 @@ public class Pawn : Chess
         IList<int> x = new List<int> { +1, +1, +1 }; // For white pawn
         IList<int> y = new List<int> { +0, +1, -1 }; // For white pawn
 
-        if (Rank == _initialRank)
+        if ((Rank, File) == _initialPosition)
         {
             x.Add(+2);  // For white pawn
             y.Add(+0);  // For white pawn

@@ -20,31 +20,33 @@ public class ConsoleOutput : IConsoleOutput
         var totalRanks = tiles.GetLength(0);
         var totalFiles = tiles.GetLength(1);
 
+        for (var rank = totalRanks - 1; rank >= 0; --rank)
+        {
+            Console.Write(FormatTile(rank.ToString()));
+
+            var consoleBackgroundColor = rank % 2 == 0 ? ConsoleColor.Green : ConsoleColor.Red;
+            for (var file = 0; file < totalFiles; file++)
+            {
+                SetTileColor(tiles[rank, file], consoleBackgroundColor);
+                var output = FormatTile(tiles[rank, file]?.GetType().GetProperty("Unicode").GetValue(tiles[rank, file]));
+
+                Console.Write(output);
+                Console.ResetColor();
+
+                consoleBackgroundColor = consoleBackgroundColor == ConsoleColor.Green
+                   ? ConsoleColor.Red : ConsoleColor.Green;
+            }
+
+            Console.Write("\r\n");
+            Console.ResetColor();
+        }
+
         Console.Write(FormatTile());
         for (var file = 0; file < totalFiles; file++)
         {
             Console.Write(FormatTile(file.ToString()));
         }
         Console.Write("\r\n");
-
-        for (var rank = 0; rank < totalRanks; ++rank)
-        {
-            Console.Write(FormatTile(rank.ToString()));
-            for (var file = 0; file < totalFiles; file++)
-            {
-                var consoleBackgroundColor = ((rank % 2 != 0 && file % 2 == 0)
-                    || (rank % 2 == 0 && file % 2 != 0))
-                    ? ConsoleColor.Red : ConsoleColor.Green;
-
-                SetTileColor(tiles[rank, file], consoleBackgroundColor);
-
-                var output = FormatTile(tiles[rank, file]?.GetType().GetProperty("Unicode").GetValue(tiles[rank, file]));
-                Console.Write(output);
-                Console.ResetColor();
-            }
-            Console.Write("\r\n");
-            Console.ResetColor();
-        }
 
         Console.WriteLine();
     }
