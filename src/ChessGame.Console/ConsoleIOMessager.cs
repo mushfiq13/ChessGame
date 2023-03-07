@@ -1,12 +1,7 @@
-﻿namespace ChessGame.Presentation;
+﻿namespace ChessGame.ConsoleUI;
 
 internal class ConsoleIOMessager
 {
-    public static void WelcomeMessage()
-    {
-        Console.WriteLine("Welcome to Chess Game...\n");
-    }
-
     public void Message(string message)
     {
         Console.WriteLine(message);

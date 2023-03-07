@@ -4,12 +4,15 @@ namespace ChessGame.Application;
 
 public partial class ChessManager : IChessManager
 {
-    public IChessBoard Board { get; private set; } = Factory.CreateChessBoard();
-    PieceCommands _pieceCommands;
-    PieceQueries _pieceQueries;
+    ChessColor _currentPlayerColor = ChessColor.White;
+    int _currentPlayerTriedToMove = 0;
+
+    IChessBoard Board = Factory.CreateChessBoard();
     IInputQueries _inputQueries = Factory.CreateInputQueries();
     IInputCommands _inputCommands = Factory.CreateInputCommands();
     IOutputCommands _outputCommands = Factory.CreateOutputCommands();
+
+    IPieceCommands _pieceCommands;
 
     public bool IsGameRunning { get; private set; } = false;
 
@@ -21,51 +24,47 @@ public partial class ChessManager : IChessManager
     public void Processor()
     {
         Start();
-
-        while (IsGameRunning)
-        {
-            _outputCommands.DisplayTiles(Board.Tiles);
-
-            (int rank, int file) = _inputCommands.SelecteTile();
-
-            while (_inputQueries.IsTileValid(rank, file) is false)
-            {
-                (rank, file) = _inputCommands.SelecteTile();
-            }
-
-            (int targetRank, int targetFile) = _inputCommands.ChoseTargetTile();
-
-            while (_inputQueries.IsTileValid(targetRank, targetFile) is false)
-            {
-                (targetRank, targetFile) = _inputCommands.ChoseTargetTile();
-            }
-
-            //if (_pieceQueries.IsOpponents(rank, file, targetRank, targetFile))
-            //{
-            //    continue;
-            //}
-
-            //var pieceMoveable = _pieceQueries.IsPieceMoveable(Board.Tiles[rank, file], targetRank, targetFile);
-
-            //if (pieceMoveable is false)
-            //{
-            //    continue;
-            //}
-
-            //if (_pieceQueries.IsOpponents(Board.Tiles[rank, file], targetRank, targetFile))
-            //{
-            //    _pieceCommands.Kill(Board.Tiles[targetRank, targetFile]);
-            //}
-
-            _pieceCommands.Move(Board.Tiles[rank, file], targetRank, targetFile);
-        }
+        Run();
     }
 
     private void Start()
     {
         Setup();
-        _outputCommands.DisplayWelcomeMessage();
 
         IsGameRunning = true;
+
+        _outputCommands.WriteMessage("Welcome To Chess Game :)");
+    }
+
+    private void Run()
+    {
+        while (IsGameRunning)
+        {
+            _outputCommands.DrawTiles(Board.Tiles);
+
+            (int srcRank, int srcFile, int targetRank, int targetFile) = AskUser();
+
+            var success = _pieceCommands.Move(Board.Tiles[srcRank, srcFile], targetRank, targetFile);
+
+            if (success == false)
+            {
+                _outputCommands.WriteMessage("Sorry, your piece can not go to target tile!");
+                _outputCommands.WriteMessage("Try Again :)");
+
+                ++_currentPlayerTriedToMove;
+            }
+            else
+            {
+                _currentPlayerColor = _currentPlayerColor == ChessColor.White
+                    ? ChessColor.Black : ChessColor.White;
+
+                _currentPlayerTriedToMove = 0;
+            }
+
+            if (_currentPlayerTriedToMove >= 50)
+            {
+                _outputCommands.WriteMessage($"Hurray Winned!");
+            }
+        }
     }
 }

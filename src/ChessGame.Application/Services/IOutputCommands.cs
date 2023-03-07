@@ -4,6 +4,6 @@ namespace ChessGame.Application;
 
 internal interface IOutputCommands
 {
-    void DisplayWelcomeMessage();
-    void DisplayTiles(in IChess[,] tiles);
+    void WriteMessage(string message);
+    void DrawTiles(in IChess[,] tiles);
 }

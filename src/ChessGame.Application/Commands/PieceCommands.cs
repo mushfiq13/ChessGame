@@ -2,7 +2,7 @@
 
 namespace ChessGame.Application;
 
-internal class PieceCommands
+internal class PieceCommands : IPieceCommands
 {
     private readonly IChessBoard _board;
 

@@ -1,9 +1,10 @@
 ﻿using ChessGame.Domain;
 
-namespace ChessGame.Application;
-
-internal interface IPieceCommands
+namespace ChessGame.Application
 {
-    void MovePiece(IChess piece, int targetRank, int targetFile);
-    void KillPiece(IChess piece);
+    internal interface IPieceCommands
+    {
+        void Kill(IChess item);
+        bool Move(IChess item, int targetRank, int targetFile);
+    }
 }

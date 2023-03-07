@@ -1,5 +1,5 @@
-﻿using ChessGame.Domain;
-using ChessGame.Presentation;
+﻿using ChessGame.ConsoleUI;
+using ChessGame.Domain;
 
 namespace ChessGame.Application;
 
@@ -12,13 +12,13 @@ internal class OutputCommands : IOutputCommands
         _consoleOutput = consoleOutput;
     }
 
-    public void DisplayWelcomeMessage()
+    public void WriteMessage(string message)
     {
-        _consoleOutput.DisplayWelcome();
+        _consoleOutput.WriteMessage(message);
     }
 
-    public void DisplayTiles(in IChess[,] tiles)
+    public void DrawTiles(in IChess[,] tiles)
     {
-        _consoleOutput.ShowBoard(tiles);
+        _consoleOutput.DrawBoard(tiles);
     }
 }

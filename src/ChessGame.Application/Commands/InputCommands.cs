@@ -1,4 +1,4 @@
-﻿using ChessGame.Presentation;
+﻿using ChessGame.ConsoleUI;
 
 namespace ChessGame.Application;
 

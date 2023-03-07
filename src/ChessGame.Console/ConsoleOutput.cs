@@ -1,15 +1,16 @@
-﻿namespace ChessGame.Presentation;
+﻿namespace ChessGame.ConsoleUI;
 
 public class ConsoleOutput : IConsoleOutput
 {
     private int _tileWidth { get; } = 5;
+    private ConsoleIOMessager _iOMessager = new();
 
-    public void DisplayWelcome()
+    public void WriteMessage(string text)
     {
-        ConsoleIOMessager.WelcomeMessage();
+        _iOMessager.Message(text);
     }
 
-    public void ShowBoard(in object[,] tiles)
+    public void DrawBoard(in object[,] tiles)
     {
         var totalRanks = tiles.GetLength(0);
         var totalFiles = totalRanks;

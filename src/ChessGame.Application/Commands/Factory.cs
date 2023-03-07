@@ -1,5 +1,5 @@
-﻿using ChessGame.Domain;
-using ChessGame.Presentation;
+﻿using ChessGame.ConsoleUI;
+using ChessGame.Domain;
 
 namespace ChessGame.Application;
 
@@ -8,7 +8,7 @@ internal static class Factory
     public static IChessBoard CreateChessBoard()
         => new ChessBoard(new IChess[ChessConstants.RANKS, ChessConstants.FILES]);
 
-    public static PieceCommands CreatePieceCommands(IChessBoard board) => new PieceCommands(board);
+    public static IPieceCommands CreatePieceCommands(IChessBoard board) => new PieceCommands(board);
 
     public static IInputQueries CreateInputQueries() => new InputQueries();
 

@@ -4,7 +4,7 @@ namespace ChessGame.Application;
 
 public partial class ChessManager
 {
-    public void Setup()
+    private void Setup()
     {
         Board.Add(Factory.CreateChess<King>(ChessColor.White, "\u2654", 0, 4));
         Board.Add(Factory.CreateChess<King>(ChessColor.Black, "\u265A", 7, 4));

@@ -1,4 +1,4 @@
-﻿namespace ChessGame.Presentation;
+﻿namespace ChessGame.ConsoleUI;
 
 public interface IConsoleInput
 {
