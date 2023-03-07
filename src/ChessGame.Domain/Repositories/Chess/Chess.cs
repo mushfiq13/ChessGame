@@ -2,7 +2,7 @@
 
 public abstract class Chess : IChess
 {
-    public bool IsAlive { get; private set; } = false;
+    public bool IsDead { get; private set; } = false;
     public int Rank { get; private set; }
     public int File { get; private set; }
     public ChessColor Color { get; }
@@ -10,7 +10,6 @@ public abstract class Chess : IChess
 
     public Chess(ChessColor color, string unicode, int rank, int file)
     {
-        IsAlive = true;
         Rank = rank;
         File = file;
         Color = color;
@@ -19,7 +18,7 @@ public abstract class Chess : IChess
 
     public void Kill()
     {
-        IsAlive = false;
+        IsDead = true;
         Rank = -1;
         File = -1;
     }
@@ -30,6 +29,5 @@ public abstract class Chess : IChess
         File = targetFile;
     }
 
-    public abstract bool IsMoveable(in IChess[,] tiles, int targetRank, int targetFile);
-
+    public abstract bool IsMoveable(in IChessBase[,] tiles, int targetRank, int targetFile);
 }

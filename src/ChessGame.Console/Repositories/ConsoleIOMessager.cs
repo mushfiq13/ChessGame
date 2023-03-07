@@ -11,4 +11,15 @@ internal class ConsoleIOMessager : IConsoleIOMessager
     {
         Console.WriteLine("Invalid Input! Please give us the correct data.");
     }
+
+    public void DisplayValidationError()
+    {
+
+    }
+
+    public void EndApplication()
+    {
+        Console.WriteLine("Press enter to close...");
+        Console.ReadLine();
+    }
 }

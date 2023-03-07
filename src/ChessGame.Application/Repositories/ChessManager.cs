@@ -51,7 +51,7 @@ public partial class ChessManager : IChessManager
                 _outputCommands.WriteMessage("\n  -> Black Chess can be moved.\n");
             }
 
-            (int srcRank, int srcFile, int targetRank, int targetFile) = AskUser();
+            (int srcRank, int srcFile, int targetRank, int targetFile) = Capture();
 
             if (Board.Tiles[srcRank, srcFile]?.Color != _currentPlayerColor)
             {

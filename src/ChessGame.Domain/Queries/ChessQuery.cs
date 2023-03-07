@@ -2,21 +2,21 @@
 
 internal class ChessQuery
 {
-    public static bool CanChessMoveTarget(in IChess[,] tiles, (int rank, int file) source,
+    public static bool FindChessCanMeetTarget(in IChessBase[,] tiles, (int rank, int file) source,
        (int rank, int file) target, int[] xDirection, int[] yDirection)
     {
-        var validPath = false;
+        var canGo = false;
 
-        for (var i = 0; i < xDirection.Length && validPath == false; ++i)
+        for (var i = 0; i < xDirection.Length && canGo == false; ++i)
         {
-            validPath = CanChessMoveTarget(tiles, source,
+            canGo = FindChessCanMeetTarget(tiles, source,
                 target, xDirection[i], yDirection[i]);
         }
 
-        return validPath;
+        return canGo;
     }
 
-    public static bool CanChessMoveTarget(in IChess[,] tiles, (int rank, int file) source,
+    public static bool FindChessCanMeetTarget(in IChessBase[,] tiles, (int rank, int file) source,
        (int rank, int file) target, int xDirection, int yDirection)
     {
         // Source tile and Target tile can not be same.
@@ -24,8 +24,7 @@ internal class ChessQuery
         int curRank = source.rank + xDirection;
         var curFile = source.file + yDirection;
 
-        while (curRank > -1 && curRank < ChessConstants.RANKS
-            && curFile > -1 && curFile < ChessConstants.FILES)
+        while (IsRankAndFileValid(curRank, curFile))
         {
             if (tiles[source.rank, source.file]?.Color == tiles[curRank, curFile]?.Color)
                 return false;
@@ -39,7 +38,7 @@ internal class ChessQuery
         return false;
     }
 
-    public static bool IsChessLocationValid(IChess item)
-       => item.Rank > -1 && item.File > -1
-           && item.Rank < ChessConstants.RANKS && item.File < ChessConstants.FILES;
+    public static bool IsRankAndFileValid(int rank, int file)
+       => rank > -1 && rank < ChessConstants.RANKS
+            && file > -1 && file < ChessConstants.FILES;
 }

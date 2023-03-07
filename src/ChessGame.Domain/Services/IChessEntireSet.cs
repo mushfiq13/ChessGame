@@ -2,11 +2,10 @@
 
 public interface IChessEntireSet
 {
-    ChessColor PieceColor { get; }
-    (IChess, IChess) Bishop { get; }
     IChess King { get; }
-    (IChess, IChess) Knight { get; }
-    IList<IChess> Pawns { get; }
     IChess Queen { get; }
+    (IChess, IChess) Knight { get; }
+    (IChess, IChess) Bishop { get; }
     (IChess, IChess) Rook { get; }
+    IList<IChess> Pawns { get; }
 }

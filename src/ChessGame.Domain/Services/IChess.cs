@@ -2,11 +2,9 @@
 
 public interface IChess : IChessBase
 {
-    bool IsAlive { get; }
-    int Rank { get; }
-    int File { get; }
+    bool IsDead { get; }
 
-    bool IsMoveable(in IChess[,] tiles, int targetRank, int targetFile);
+    bool IsMoveable(in IChessBase[,] tiles, int targetRank, int targetFile);
     void Move(int targetRank, int targetFile);
     void Kill();
 }

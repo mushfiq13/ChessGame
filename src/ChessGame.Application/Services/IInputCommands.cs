@@ -2,6 +2,6 @@
 
 internal interface IInputCommands
 {
-    (int rank, int file) SelecteTile();
-    (int rank, int file) ChoseTargetTile();
+    (int rank, int file) CaptureSourceTile();
+    (int rank, int file) CaptureTargetTile();
 }

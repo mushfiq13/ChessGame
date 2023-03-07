@@ -2,5 +2,5 @@
 
 internal interface IInputQueries
 {
-    bool IsTileExist(int rank, int file);
+    bool IsFileAndRankValid(int rank, int file);
 }

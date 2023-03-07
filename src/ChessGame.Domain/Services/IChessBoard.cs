@@ -1,12 +1,11 @@
 ﻿namespace ChessGame.Domain;
 
-public interface IChessBoard : IChessRepository
+public interface IChessBoard
 {
-    int Count { get; }
+    IChess[,] Tiles { get; }
 
-    void Add(IChess item);
-    bool Contains(IChess item);
-    void Remove(IChess item);
-    void Set(IChess item, int targetRank, int targetFile);
+    void Add(in IChess item);
+    bool Contains(in IChess item);
+    void Set(in IChess item, int targetRank, int targetFile);
     void Remove(int rank, int file);
 }

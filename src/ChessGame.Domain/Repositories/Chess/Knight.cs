@@ -7,13 +7,13 @@ public class Knight : Chess
     {
     }
 
-    public override bool IsMoveable(in IChess[,] tiles, int targetRank, int targetFile)
+    public override bool IsMoveable(in IChessBase[,] tiles, int targetRank, int targetFile)
     {
-        // Knight can go only to these directoins.
+        // Knight can go only to these directions.
         var xAxis = new[] { +2, +1, -1, -2, -2, -1, +1, +2 };
         var yAxis = new[] { +1, +2, +2, +1, -1, -2, -2, -1 };
 
-        return IsAlive && ChessQuery.CanChessMoveTarget(tiles, (Rank, File),
+        return IsDead is false && ChessQuery.FindChessCanMeetTarget(tiles, (Rank, File),
             (targetRank, targetFile), xAxis, yAxis);
     }
 }

@@ -10,17 +10,17 @@ public class Pawn : Chess
         _initialPosition = (rank, file);
     }
 
-    public override bool IsMoveable(in IChess[,] tiles, int targetRank, int targetFile)
+    public override bool IsMoveable(in IChessBase[,] tiles, int targetRank, int targetFile)
     {
-        var (xAxis, yAxis) = GetDirection();
+        var (xAxis, yAxis) = GetWhichDirectionToMove();
 
-        return IsAlive && ChessQuery.CanChessMoveTarget(tiles, (Rank, File),
+        return IsDead is false && ChessQuery.FindChessCanMeetTarget(tiles, (Rank, File),
             (targetRank, targetFile), xAxis.ToArray(), yAxis.ToArray());
     }
 
-    private (IList<int> X, IList<int> Y) GetDirection()
+    private (IList<int> X, IList<int> Y) GetWhichDirectionToMove()
     {
-        // White Pawn can go only to these directoins.
+        // White Pawn can go only to these directions.
         IList<int> x = new List<int> { +1, +1, +1 }; // For white pawn
         IList<int> y = new List<int> { +0, +1, -1 }; // For white pawn
 
@@ -30,9 +30,9 @@ public class Pawn : Chess
             y.Add(+0);  // For white pawn
         }
 
+        // For black pawn directions will be negative.
         for (var i = 0; i < x.Count && Color == ChessColor.Black; ++i)
         {
-            // For black pawn directions will be negative.
             x[i] *= -1;
             y[i] *= -1;
         }

@@ -2,29 +2,18 @@
 
 public class ChessBoard : IChessBoard
 {
-    public int Count { get; private set; } = 0;
     public IChess[,] Tiles { get; private set; }
 
     public ChessBoard(IChess[,] tiles) => Tiles = tiles;
 
-    public void Add(IChess item)
-    {
-        Tiles[item.Rank, item.File] = item;
+    public void Add(in IChess item) => Tiles[item.Rank, item.File] = item;
 
-        ++Count;
-    }
+    public bool Contains(in IChess item)
+        => ChessQuery.IsRankAndFileValid(item.Rank, item.File)
+            && Tiles[item.Rank, item.File].Equals(item);
 
-    public bool Contains(IChess item)
-        => ChessQuery.IsChessLocationValid(item) && Tiles[item.Rank, item.File].Equals(item);
+    public void Set(in IChess item, int targetRank, int targetFile)
+        => Tiles[targetRank, targetFile] = item;
 
-    public void Set(IChess item, int targetRank, int targetFile) => Tiles[targetRank, targetFile] = item;
-
-    public void Remove(IChess item)
-    {
-        Tiles[item.Rank, item.File] = default;
-
-        --Count;
-    }
-
-    public void Remove(int rank, int file) => Tiles[rank, file] = default;
+    public void Remove(int rank, int file) => Tiles[rank, file] = null;
 }

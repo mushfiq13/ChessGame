@@ -7,9 +7,9 @@ public class Rook : Chess
     {
     }
 
-    public override bool IsMoveable(in IChess[,] tiles, int targetRank, int targetFile)
+    public override bool IsMoveable(in IChessBase[,] tiles, int targetRank, int targetFile)
     {
-        // Find in which director to go.
+        // Find in which direction to go.
         var xAxis = Rank == targetRank ? +0
             : targetRank > Rank ? +1
             : -1;
@@ -17,7 +17,7 @@ public class Rook : Chess
             : targetFile > File ? +1
             : -1;
 
-        return IsAlive && ChessQuery.CanChessMoveTarget(tiles, (Rank, File),
+        return IsDead is false && ChessQuery.FindChessCanMeetTarget(tiles, (Rank, File),
             (targetRank, targetFile), xAxis, yAxis);
     }
 }
