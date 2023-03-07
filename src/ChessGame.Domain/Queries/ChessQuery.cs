@@ -2,34 +2,34 @@
 
 internal class ChessQuery
 {
-    public static bool CanChessMoveTarget(in IChess[,] tiles, int sourceRank, int sourceFile,
-        int targetRank, int targetFile, int[] xDirection, int[] yDirection)
+    public static bool CanChessMoveTarget(in IChess[,] tiles, (int rank, int file) source,
+       (int rank, int file) target, int[] xDirection, int[] yDirection)
     {
         var validPath = false;
 
         for (var i = 0; i < xDirection.Length && validPath == false; ++i)
         {
-            validPath = CanChessMoveTarget(tiles, sourceRank, sourceFile,
-                targetRank, targetFile, xDirection[i], yDirection[i]);
+            validPath = CanChessMoveTarget(tiles, source,
+                target, xDirection[i], yDirection[i]);
         }
 
         return validPath;
     }
 
-    public static bool CanChessMoveTarget(in IChess[,] tiles, int sourceRank, int sourceFile,
-        int targetRank, int targetFile, int xDirection, int yDirection)
+    public static bool CanChessMoveTarget(in IChess[,] tiles, (int rank, int file) source,
+       (int rank, int file) target, int xDirection, int yDirection)
     {
         // Source tile and Target tile can not be same.
         // So, starting from next tile.
-        int curRank = sourceRank + xDirection;
-        var curFile = sourceFile + yDirection;
+        int curRank = source.rank + xDirection;
+        var curFile = source.file + yDirection;
 
         while (curRank > -1 && curRank < ChessConstants.RANKS
             && curFile > -1 && curFile < ChessConstants.FILES)
         {
-            if (tiles[sourceRank, sourceFile]?.Color == tiles[curRank, curFile]?.Color)
+            if (tiles[source.rank, source.file]?.Color == tiles[curRank, curFile]?.Color)
                 return false;
-            if (curRank == targetRank && curFile == targetFile)
+            if (curRank == target.rank && curFile == target.file)
                 return true;
 
             curRank += xDirection;

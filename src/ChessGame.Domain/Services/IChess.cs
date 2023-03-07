@@ -6,6 +6,7 @@ public interface IChess : IChessBase
     int Rank { get; }
     int File { get; }
 
-    bool Move(in IChess[,] tiles, int targetRank, int targetFile);
+    bool IsMoveable(in IChess[,] tiles, int targetRank, int targetFile);
+    void Move(int targetRank, int targetFile);
     void Kill();
 }

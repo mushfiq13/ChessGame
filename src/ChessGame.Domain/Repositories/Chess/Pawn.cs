@@ -10,19 +10,12 @@ public class Pawn : Chess
         _initialRank = rank;
     }
 
-    public override bool Move(in IChess[,] tiles, int targetRank, int targetFile)
+    public override bool IsMoveable(in IChess[,] tiles, int targetRank, int targetFile)
     {
         var (xAxis, yAxis) = GetDirection();
 
-        if (IsAlive && ChessQuery.CanChessMoveTarget(tiles, Rank, File,
-            targetRank, targetFile, xAxis.ToArray(), yAxis.ToArray()))
-        {
-            ResetPosition(targetRank, targetFile);
-
-            return true;
-        }
-
-        return false;
+        return IsAlive && ChessQuery.CanChessMoveTarget(tiles, (Rank, File),
+            (targetRank, targetFile), xAxis.ToArray(), yAxis.ToArray());
     }
 
     private (IList<int> X, IList<int> Y) GetDirection()

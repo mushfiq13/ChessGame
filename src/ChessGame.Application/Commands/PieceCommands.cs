@@ -13,20 +13,18 @@ internal class PieceCommands
 
     public bool Move(IChess item, int targetRank, int targetFile)
     {
-        var moved = item.Move(_board.Tiles, targetRank, targetFile);
+        if (item.IsMoveable(_board.Tiles, targetRank, targetFile) is false)
+            return false;
 
-        if (moved)
-        {
-            _board.Move(item, targetRank, targetFile);
-        }
+        _board.Move(item, targetRank, targetFile);
+        item.Move(targetRank, targetFile);
 
-        return moved;
+        return true;
     }
 
     public void Kill(IChess item)
     {
-        _board.Dead(item);
-
+        _board.Remove(item);
         item.Kill();
     }
 }

@@ -7,7 +7,7 @@ public class Rook : Chess
     {
     }
 
-    public override bool Move(in IChess[,] tiles, int targetRank, int targetFile)
+    public override bool IsMoveable(in IChess[,] tiles, int targetRank, int targetFile)
     {
         // Find in which director to go.
         var xAxis = Rank == targetRank ? +0
@@ -17,14 +17,7 @@ public class Rook : Chess
             : targetFile > File ? +1
             : -1;
 
-        if (IsAlive && ChessQuery.CanChessMoveTarget(tiles, Rank, File,
-            targetRank, targetFile, xAxis, yAxis))
-        {
-            ResetPosition(targetRank, targetFile);
-
-            return true;
-        }
-
-        return false;
+        return IsAlive && ChessQuery.CanChessMoveTarget(tiles, (Rank, File),
+            (targetRank, targetFile), xAxis, yAxis);
     }
 }

@@ -5,7 +5,8 @@ namespace ChessGame.Application;
 
 internal static class Factory
 {
-    public static IChessBoard CreateChessBoard() => new ChessBoard();
+    public static IChessBoard CreateChessBoard()
+        => new ChessBoard(new IChess[ChessConstants.RANKS, ChessConstants.FILES]);
 
     public static PieceCommands CreatePieceCommands(IChessBoard board) => new PieceCommands(board);
 
@@ -15,21 +16,14 @@ internal static class Factory
 
     public static IOutputCommands CreateOutputCommands() => new OutputCommands(new ConsoleOutput());
 
-    public static IChess CreateKing(ChessColor color, string unicode, int rank, int file)
-        => new King(color, unicode, rank, file);
+    public static T CreateChess<T>(ChessColor color, string unicode, int rank, int file)
+        where T : IChess
+    {
+        var type = typeof(T);
+        var constructor = type.GetConstructor(new Type[] {
+            typeof(ChessColor), typeof(string), typeof(int), typeof(int) });
+        var instance = constructor.Invoke(new object[] { color, unicode, rank, file });
 
-    public static IChess CreateQueen(ChessColor color, string unicode, int rank, int file)
-        => new Queen(color, unicode, rank, file);
-
-    public static IChess CreateBishop(ChessColor color, string unicode, int rank, int file)
-        => new Bishop(color, unicode, rank, file);
-
-    public static IChess CreateRook(ChessColor color, string unicode, int rank, int file)
-        => new Rook(color, unicode, rank, file);
-
-    public static IChess CreateKnight(ChessColor color, string unicode, int rank, int file)
-        => new Knight(color, unicode, rank, file);
-
-    public static IChess CreatePawn(ChessColor color, string unicode, int rank, int file)
-        => new Pawn(color, unicode, rank, file);
+        return (T)instance;
+    }
 }

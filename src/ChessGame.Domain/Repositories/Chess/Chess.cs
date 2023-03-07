@@ -24,11 +24,12 @@ public abstract class Chess : IChess
         File = -1;
     }
 
-    protected void ResetPosition(int targetRank, int targetFile)
+    public void Move(int targetRank, int targetFile)
     {
         Rank = targetRank;
         File = targetFile;
     }
 
-    public abstract bool Move(in IChess[,] tiles, int targetRank, int targetFile);
+    public abstract bool IsMoveable(in IChess[,] tiles, int targetRank, int targetFile);
+
 }

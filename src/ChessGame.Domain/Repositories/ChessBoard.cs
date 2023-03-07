@@ -5,7 +5,7 @@ public class ChessBoard : IChessBoard
     public int Count { get; private set; } = 0;
     public IChess[,] Tiles { get; private set; }
 
-    public ChessBoard() => Tiles = Factory.CreateTiles();
+    public ChessBoard(IChess[,] tiles) => Tiles = tiles;
 
     public void Add(IChess item)
     {
@@ -19,7 +19,7 @@ public class ChessBoard : IChessBoard
 
     public void Move(IChess item, int targetRank, int targetFile) => Tiles[targetRank, targetFile] = item;
 
-    public void Dead(IChess item)
+    public void Remove(IChess item)
     {
         Tiles[item.Rank, item.File] = default;
 
