@@ -1,11 +1,13 @@
-﻿namespace ChessGame.Application;
+﻿using ChessGame.Domain;
 
-public partial class ChessManager
+namespace ChessGame.Application;
+
+public partial class GameManager
 {
     private (int srcRank, int srcFile, int targetRank, int targetFile) Capture()
     {
-        (int srcRank, int srcFile) = GetCapturedTile(_inputCommands.CaptureSourceTile);
-        (int targetRank, int targetFile) = GetCapturedTile(_inputCommands.CaptureTargetTile);
+        (int srcRank, int srcFile) = GetCapturedTile(_UICommands.CaptureSourceTile);
+        (int targetRank, int targetFile) = GetCapturedTile(_UICommands.CaptureTargetTile);
 
         return (srcRank, srcFile, targetRank, targetFile);
     }
@@ -18,7 +20,7 @@ public partial class ChessManager
         do
         {
             (rank, file) = capture();
-        } while (_inputQueries.IsFileAndRankValid(rank, file) is false);
+        } while (ChessQuery.IsRankAndFileValid(rank, file) is false);
 
         return (rank, file);
     }

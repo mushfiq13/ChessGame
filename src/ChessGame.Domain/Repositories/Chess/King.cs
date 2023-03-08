@@ -13,7 +13,7 @@ public class King : Chess
         var xAxis = new[] { +1, +1, +0, -1, -1, -1, +0, +1 };
         var yAxis = new[] { +0, +1, +1, +1, +0, -1, -1, -1 };
 
-        return IsDead is false && ChessQuery.FindChessCanMeetTarget(tiles, (Rank, File),
+        return IsAlive && ChessQuery.FindChessCanMeetTarget(tiles, (Rank, File),
             (targetRank, targetFile), xAxis, yAxis);
     }
 }

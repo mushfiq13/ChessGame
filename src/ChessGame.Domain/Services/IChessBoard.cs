@@ -2,5 +2,5 @@
 
 public interface IChessBoard
 {
-    IChessCore[,] Tiles { get; }
+    IChess[,] Tiles { get; }
 }

@@ -17,7 +17,7 @@ public class Rook : Chess
             : targetFile > File ? +1
             : -1;
 
-        return IsDead is false && ChessQuery.FindChessCanMeetTarget(tiles, (Rank, File),
+        return IsAlive && ChessQuery.FindChessCanMeetTarget(tiles, (Rank, File),
             (targetRank, targetFile), xAxis, yAxis);
     }
 }

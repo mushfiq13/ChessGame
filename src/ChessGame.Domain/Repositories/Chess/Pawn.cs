@@ -14,7 +14,7 @@ public class Pawn : Chess
     {
         var (xAxis, yAxis) = GetWhichDirectionToMove();
 
-        return IsDead is false && ChessQuery.FindChessCanMeetTarget(tiles, (Rank, File),
+        return IsAlive && ChessQuery.FindChessCanMeetTarget(tiles, (Rank, File),
             (targetRank, targetFile), xAxis.ToArray(), yAxis.ToArray());
     }
 

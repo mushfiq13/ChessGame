@@ -1,6 +1,6 @@
 ﻿namespace ChessGame.Domain;
 
-internal class ChessQuery
+public partial class ChessQuery
 {
     public static bool FindChessCanMeetTarget(in IChessCore[,] tiles, (int rank, int file) source,
        (int rank, int file) target, int[] xDirection, int[] yDirection)
