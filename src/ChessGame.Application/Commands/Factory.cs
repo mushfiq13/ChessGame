@@ -5,8 +5,8 @@ namespace ChessGame.Application;
 
 internal static class Factory
 {
-    public static IBoardManager CreateChessBoard()
-        => new BoardManager(new IChess[ChessConstants.RANKS, ChessConstants.FILES]);
+    public static IBoardManager CreateBoardManager()
+        => new ChessBoard(new IChess[ChessConstants.RANKS, ChessConstants.FILES]);
 
     public static T CreateChess<T>(ChessColor color, string unicode, int rank, int file)
         where T : IChess
@@ -23,9 +23,7 @@ internal static class Factory
 
     public static StandardMessages CreateStandardMessages() => new StandardMessages();
 
-    public static IConsoleInput CreateConsoleInput() => new ConsoleInput();
-
-    public static IConsoleOutput CreateConsoleOutput() => new ConsoleOutput();
+    public static IConsoleManager CreateConsoleManager() => new ConsoleManager();
 
     public static IConsoleUICommands CreateConsoleUICommands() => new ConsoleUICommands();
 }

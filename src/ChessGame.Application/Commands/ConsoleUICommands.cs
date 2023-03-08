@@ -5,17 +5,27 @@ namespace ChessGame.Application;
 
 internal class ConsoleUICommands : IConsoleUICommands
 {
-    IConsoleInput _consoleInput = Factory.CreateConsoleInput();
-    IConsoleOutput _consoleOutput = Factory.CreateConsoleOutput();
+    IConsoleManager _consoleManager = Factory.CreateConsoleManager();
+
+    public void DisplayMessage(string message) => _consoleManager.Messager.Message(message);
 
     public (int rank, int file) CaptureSourceTile()
-        => _consoleInput.ReadTilePosition("Please select a chess to move...");
+        => _consoleManager.Input.ReadTilePosition("Please select a chess to move...");
 
     public (int rank, int file) CaptureTargetTile()
-        => _consoleInput.ReadTilePosition("Please choose a target tile...");
+        => _consoleManager.Input.ReadTilePosition("Please choose a target tile...");
+
+    public void DrawLogo() => _consoleManager.Output.PrintLogo();
+
+    public void DisplayMenu() => _consoleManager.Output.PrintMenu();
+
+    public void DisplayCapturedItems(IChessCore[] _whiteCaptured, IChessCore[] _blackCaptured)
+        => _consoleManager.Output.PrintCapturedItems(_whiteCaptured, _blackCaptured);
 
     public void DrawTiles(in IChessCore[,] tiles)
-        => _consoleOutput.DrawBoard(tiles);
+        => _consoleManager.Output.DrawBoard(tiles);
 
-    public void ResetConsole() => _consoleOutput.ResetConsole();
+    public void CurrentTurn(object obj) => _consoleManager.Output.CurrentTurn(obj);
+
+    public void ResetConsole() => _consoleManager.Output.ResetConsole();
 }

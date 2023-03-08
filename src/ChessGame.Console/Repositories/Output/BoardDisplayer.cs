@@ -1,20 +1,7 @@
 ﻿namespace ChessGame.ConsoleUI;
 
-public class ConsoleOutput : IConsoleOutput
+public partial class ConsoleOutput
 {
-    private int _padding = 3;
-    private ConsoleIOMessager _iOMessager = new();
-
-    public void WriteMessage(string text)
-    {
-        _iOMessager.Message(text);
-    }
-
-    public void ResetConsole()
-    {
-        Console.Clear();
-    }
-
     public void DrawBoard(in object[,] tiles)
     {
         var totalRanks = tiles.GetLength(0);
@@ -27,7 +14,7 @@ public class ConsoleOutput : IConsoleOutput
             var consoleBackgroundColor = rank % 2 == 0 ? ConsoleColor.Green : ConsoleColor.Red;
             for (var file = 0; file < totalFiles; file++)
             {
-                SetTileColor(tiles[rank, file], consoleBackgroundColor);
+                Colorize(tiles[rank, file], consoleBackgroundColor);
                 var output = FormatTile(tiles[rank, file]?.GetType().GetProperty("Unicode").GetValue(tiles[rank, file]));
 
                 Console.Write(output);
@@ -51,7 +38,7 @@ public class ConsoleOutput : IConsoleOutput
         Console.WriteLine();
     }
 
-    private void SetTileColor(object obj, ConsoleColor consoleBackgroundColor = ConsoleColor.Green)
+    private void Colorize(object obj, ConsoleColor consoleBackgroundColor = ConsoleColor.Green)
     {
         Console.BackgroundColor = consoleBackgroundColor;
         Console.ForegroundColor = obj?.GetType().GetProperty("Color").GetValue(obj)
@@ -61,5 +48,14 @@ public class ConsoleOutput : IConsoleOutput
     }
 
     private string FormatTile(object? obj = null)
-        => $"{new string(' ', _padding)}{obj ?? " "}{new string(' ', _padding)}";
+    {
+        var len = (obj ?? " ").ToString().Length;
+        var chars = 7 - len;
+        var leftPart = new string(' ', chars / 2);
+        var rightPart = new string(' ', chars / 2 + chars % 2);
+
+        return $"{leftPart}{obj ?? " "}{rightPart}";
+    }
+
+    public void ResetConsole() => Console.Clear();
 }

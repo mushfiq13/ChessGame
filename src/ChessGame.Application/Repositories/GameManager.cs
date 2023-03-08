@@ -4,14 +4,17 @@ namespace ChessGame.Application;
 
 public partial class GameManager : IGameManager
 {
-    IBoardManager _board = Factory.CreateChessBoard();
+    IBoardManager _board = Factory.CreateBoardManager();
     StandardMessages _messages = Factory.CreateStandardMessages();
     IGameCommands _chessCommands = Factory.CreatePieceCommands();
     IConsoleUICommands _UICommands = Factory.CreateConsoleUICommands();
 
+    int _currentPlayerTriedToMove = 0;
+    IList<IChessCore> _whiteCaptured = new List<IChessCore>();
+    IList<IChessCore> _blackCaptured = new List<IChessCore>();
+
     public ChessColor? CurrentPlayer { get; private set; }
     public ChessColor? Winner { get; private set; }
-    int _currentPlayerTriedToMove = 0;
 
     public GameManager()
     {
@@ -30,16 +33,11 @@ public partial class GameManager : IGameManager
 
         while (Over())
         {
+            _UICommands.DrawLogo();
+            _UICommands.DisplayMenu();
+            _UICommands.DisplayCapturedItems(_whiteCaptured.ToArray(), _blackCaptured.ToArray());
             _UICommands.DrawTiles(_board.Tiles);
-
-            //if (CurrentPlayer == ChessColor.White)
-            //{
-            //    _UICommands.WriteMessage("\n  -> White Chess can be moved.\n");
-            //}
-            //else
-            //{
-            //    _UICommands.WriteMessage("\n  -> Black Chess can be moved.\n");
-            //}
+            _UICommands.CurrentTurn(CurrentPlayer == ChessColor.White ? "White" : "Black");
 
             (int srcRank, int srcFile, int targetRank, int targetFile) = Capture();
 

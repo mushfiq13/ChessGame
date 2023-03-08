@@ -1,18 +1,10 @@
-﻿using ChessGame.ConsoleUI;
-
-namespace ChessGame.Application;
+﻿namespace ChessGame.Application;
 
 internal class StandardMessages
 {
-    IConsoleOutput _consoleOutput = Factory.CreateConsoleOutput();
+    IConsoleUICommands _uICommands = Factory.CreateConsoleUICommands();
 
-    public void WelcomeMessage()
-    {
-        _consoleOutput.WriteMessage("Welcome To Chess Game :)");
-    }
+    public void WelcomeMessage() => _uICommands.DisplayMessage("\n\t\t\tWelcome To Chess Game\n");
 
-    public void InvalidCaptureMessage()
-    {
-        _consoleOutput.WriteMessage("");
-    }
+    public void InvalidCaptureMessage() => _uICommands.DisplayMessage("");
 }

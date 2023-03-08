@@ -20,7 +20,7 @@ public partial class GameManager
         do
         {
             (rank, file) = capture();
-        } while (ChessQuery.IsRankAndFileValid(rank, file) is false);
+        } while (ChessQuery.Inbounds(rank, file) is false);
 
         return (rank, file);
     }

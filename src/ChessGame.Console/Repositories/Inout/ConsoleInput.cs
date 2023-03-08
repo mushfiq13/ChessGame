@@ -2,13 +2,13 @@
 
 public class ConsoleInput : IConsoleInput
 {
-    private ConsoleIOMessager _iOMessager = new();
+    private IConsoleMessager _iOMessager = Factory.CreateConsoleMessager();
 
     public (int Rank, int File) ReadTilePosition(string selectionMessage)
     {
-        BreakLine();
-        _iOMessager.Message(selectionMessage);
+        Console.WriteLine();
 
+        _iOMessager.Message(selectionMessage);
         _iOMessager.Message("Select rank and press enter:");
         var rank = DigitReader();
 
@@ -28,13 +28,11 @@ public class ConsoleInput : IConsoleInput
             var digit = input?.ElementAtOrDefault(0);
 
             if (input.Length > 1 || (digit < '0' || digit > '9'))
-                _iOMessager.InvalidInputMessage();
+                _iOMessager.Message("Inavlid input!");
             else
                 result = (char)digit - '0';
         };
 
         return result;
     }
-
-    private void BreakLine() => Console.WriteLine();
 }

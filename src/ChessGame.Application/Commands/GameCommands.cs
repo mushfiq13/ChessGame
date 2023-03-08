@@ -26,6 +26,6 @@ internal class GameCommands : IGameCommands
     private void KillOpponent(IBoardManager boardManager, IChess opponent)
     {
         boardManager.Remove(opponent.Rank, opponent.File);
-        opponent.Set(-1, -1);
+        opponent.Kill();
     }
 }
