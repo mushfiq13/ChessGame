@@ -9,11 +9,8 @@ internal class ConsoleUICommands : IConsoleUICommands
 
     public void DisplayMessage(string message) => _consoleManager.Messager.Message(message);
 
-    public (int rank, int file) CaptureSourceTile()
-        => _consoleManager.Input.ReadTilePosition("Please select a chess to move...");
-
-    public (int rank, int file) CaptureTargetTile()
-        => _consoleManager.Input.ReadTilePosition("Please choose a target tile...");
+    public (int rank, int file) CaptureChess()
+        => _consoleManager.Input.SelectMoveableChess();
 
     public void DrawLogo() => _consoleManager.Output.PrintLogo();
 
@@ -25,7 +22,7 @@ internal class ConsoleUICommands : IConsoleUICommands
     public void DrawTiles(in IChessCore[,] tiles)
         => _consoleManager.Output.DrawBoard(tiles);
 
-    public void CurrentTurn(object obj) => _consoleManager.Output.CurrentTurn(obj);
+    public void DisplayCurrentTurn(object obj) => _consoleManager.Output.CurrentTurn(obj);
 
     public void ResetConsole() => _consoleManager.Output.ResetConsole();
 }

@@ -21,8 +21,6 @@ internal static class Factory
 
     public static IGameCommands CreatePieceCommands() => new GameCommands();
 
-    public static StandardMessages CreateStandardMessages() => new StandardMessages();
-
     public static IConsoleManager CreateConsoleManager() => new ConsoleManager();
 
     public static IConsoleUICommands CreateConsoleUICommands() => new ConsoleUICommands();

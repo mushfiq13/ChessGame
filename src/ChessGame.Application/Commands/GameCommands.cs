@@ -6,10 +6,11 @@ internal class GameCommands : IGameCommands
 {
     public bool Move(IBoardManager boardManager, IChess item, int targetRank, int targetFile)
     {
-        if (item.IsMoveable(boardManager.Tiles, targetRank, targetFile) is false)
+        if (boardManager.Tiles[item.Rank, item.File]
+            .IsMoveable(boardManager.Tiles, targetRank, targetFile) is false)
             return false;
 
-        // Check is oppponent
+        // Check if oppponent
         if (boardManager.Tiles[targetRank, targetFile] is not null
             && boardManager.Tiles[targetRank, targetFile]?.Color != item?.Color)
         {
