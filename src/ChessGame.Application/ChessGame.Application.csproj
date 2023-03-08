@@ -7,13 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ChessGame.Console\ChessGame.ConsoleUI.csproj" />
-    <ProjectReference Include="..\ChessGame.Domain\ChessGame.Domain.csproj" />
-    <ProjectReference Include="..\ChessGame.Presentation\ChessGame.Console.csproj" />
+    <Compile Remove="Queries\**" />
+    <EmbeddedResource Remove="Queries\**" />
+    <None Remove="Queries\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Queries\" />
+    <ProjectReference Include="..\ChessGame.Console\ChessGame.ConsoleUI.csproj" />
+    <ProjectReference Include="..\ChessGame.Domain\ChessGame.Domain.csproj" />
+    <ProjectReference Include="..\ChessGame.Presentation\ChessGame.Console.csproj" />
   </ItemGroup>
 
 </Project>

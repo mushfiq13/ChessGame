@@ -19,7 +19,7 @@ internal static class Factory
         return (T)instance;
     }
 
-    public static IChessCommands CreatePieceCommands() => new ChessCommands();
+    public static IGameCommands CreatePieceCommands() => new GameCommands();
 
     public static StandardMessages CreateStandardMessages() => new StandardMessages();
 

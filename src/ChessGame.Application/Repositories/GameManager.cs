@@ -6,7 +6,7 @@ public partial class GameManager : IGameManager
 {
     IBoardManager _board = Factory.CreateChessBoard();
     StandardMessages _messages = Factory.CreateStandardMessages();
-    IChessCommands _chessCommands = Factory.CreatePieceCommands();
+    IGameCommands _chessCommands = Factory.CreatePieceCommands();
     IConsoleUICommands _UICommands = Factory.CreateConsoleUICommands();
 
     public ChessColor? CurrentPlayer { get; private set; }
