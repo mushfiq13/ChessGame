@@ -1,6 +1,6 @@
 ﻿namespace ChessGame.Domain;
 
-public partial class ChessQuery
+public class ChessDataGetter
 {
     public static (string unicode, int rank, int[] files) GetFixedData(ChessType type, ChessColor color)
     {
@@ -21,4 +21,7 @@ public partial class ChessQuery
             (ChessType.Pawn, ChessColor.Black) => ("\u265F", 6, new[] { 0, 1, 2, 3, 4, 5, 6, 7 }),
         };
     }
+
+    public static bool IsKingsUnicode(string unicode)
+        => unicode == "\u2654" || unicode == "\u265A";
 }

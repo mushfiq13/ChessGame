@@ -1,15 +1,15 @@
 ﻿namespace ChessGame.Domain;
 
-public partial class ChessQuery
+public class ChessPathValidator
 {
-    public static bool FindChessCanMeetTarget(in IChessCore[,] tiles, (int rank, int file) source,
+    public static bool FindChessCanMeetTarget(in IChessCore[,] tiles, IChessCore source,
        (int rank, int file) target, int[] xDirection, int[] yDirection)
     {
         var canGo = false;
 
         for (var i = 0; i < xDirection.Length && canGo == false; ++i)
         {
-            canGo = FindChessCanMeetTarget(tiles, source,
+            canGo = FindChessCanMeetTarget(tiles, (source.Rank, source.File),
                 target, xDirection[i], yDirection[i]);
         }
 
@@ -21,10 +21,11 @@ public partial class ChessQuery
     {
         (int rank, int file) new_move = (source.rank + xDirection, source.file + yDirection);
 
-        if (Inbounds(new_move.rank, new_move.file) == false) return false;
+        if (Inbounds(new_move.rank, new_move.file) == false)
+            return false;
         if (tiles[source.rank, source.file]?.Color == tiles[new_move.rank, new_move.file]?.Color)
             return false;
-        if (new_move == target)
+        if (new_move == (target.rank, target.file))
             return true;
 
         return FindChessCanMeetTarget(tiles, new_move, target, xDirection, yDirection);

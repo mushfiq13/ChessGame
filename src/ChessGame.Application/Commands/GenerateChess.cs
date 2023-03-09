@@ -2,7 +2,7 @@
 
 namespace ChessGame.Application;
 
-internal class ChessGenerator
+internal class GenerateChess
 {
     public static void CreateChessSet(IBoardManager board, ChessColor color)
     {
@@ -17,7 +17,7 @@ internal class ChessGenerator
     private static void CreateChess<T>(IBoardManager board, ChessType type, ChessColor color)
         where T : IChess
     {
-        (string unicode, int rank, int[] files) = ChessQuery.GetFixedData(type, color);
+        (string unicode, int rank, int[] files) = ChessDataGetter.GetFixedData(type, color);
 
         foreach (var file in files)
         {

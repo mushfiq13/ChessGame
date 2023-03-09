@@ -20,15 +20,25 @@ public partial class ConsoleOutput : IConsoleOutput
     public void PrintCapturedItems(object[] whiteCaptured, object[] blackCaptured)
     {
         Console.WriteLine("---------------------------------------------");
-        Console.WriteLine("WHITE captured: ");
-        foreach (var item in whiteCaptured)
-            Console.Write($" {item}");
 
-        Console.WriteLine("BLACK captured: ");
-        foreach (var item in blackCaptured)
-            Console.Write($" {item}");
+        Console.Write("WHITE captured: ");
+        PrintItems(whiteCaptured);
+
+        Console.Write("BLACK captured: ");
+        PrintItems(blackCaptured);
 
         Console.WriteLine("---------------------------------------------");
+
+        void PrintItems(object[] items)
+        {
+            Console.BackgroundColor = ConsoleColor.Red;
+            foreach (var item in items)
+            {
+                Console.Write($"{item.GetType().GetProperty("Unicode")?.GetValue(item)} ");
+            }
+            Console.ResetColor();
+            Console.WriteLine();
+        }
     }
 
     public void CurrentTurn(object value)

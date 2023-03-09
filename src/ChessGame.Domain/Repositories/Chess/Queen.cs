@@ -13,7 +13,7 @@ public class Queen : Chess
         var xAxis = new[] { +1, +1, +0, -1, -1, -1, +0 };
         var yAxis = new[] { +0, +1, +1, +1, +0, -1, -1 };
 
-        return IsKilled == false && ChessQuery.FindChessCanMeetTarget(tiles, (Rank, File),
+        return IsKilled == false && ChessPathValidator.FindChessCanMeetTarget(tiles, this,
              (targetRank, targetFile), xAxis, yAxis);
     }
 }

@@ -13,7 +13,7 @@ public class Knight : Chess
         var xAxis = new[] { +2, +1, -1, -2, -2, -1, +1, +2 };
         var yAxis = new[] { +1, +2, +2, +1, -1, -2, -2, -1 };
 
-        return IsKilled == false && ChessQuery.FindChessCanMeetTarget(tiles, (Rank, File),
-            (targetRank, targetFile), xAxis, yAxis);
+        return ChessPathValidator.FindChessCanMeetTarget(tiles, this,
+             (targetRank, targetFile), xAxis, yAxis);
     }
 }

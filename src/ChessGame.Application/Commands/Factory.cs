@@ -19,9 +19,11 @@ internal static class Factory
         return (T)instance;
     }
 
-    public static IGameCommands CreatePieceCommands() => new GameCommands();
+    public static IChessManipulator CreateChessManipulator() => new ChessManipulator();
 
     public static IConsoleManager CreateConsoleManager() => new ConsoleManager();
 
-    public static IConsoleUICommands CreateConsoleUICommands() => new ConsoleUICommands();
+    public static IUICommands CreateConsoleUICommands() => new UICommands();
+
+    public static IChessDataCapture CreateChessDataCapture() => new ChessDataCapture();
 }

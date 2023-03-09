@@ -2,12 +2,8 @@
 
 namespace ChessGame.Application;
 
-public interface IGameManager : IDisposable
+public interface IGameManager : IGameCoreManager, IDisposable
 {
-    ChessColor? CurrentPlayer { get; }
-    ChessColor? Winner { get; }
-
-    void Play();
-    void Replay();
-    bool Over();
+    IList<IChessCore> WhiteCaptured { get; }
+    IList<IChessCore> BlackCaptured { get; }
 }

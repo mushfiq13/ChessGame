@@ -10,7 +10,7 @@ public abstract class Chess : IChess
     {
         get
         {
-            return ChessQuery.Inbounds(Rank, File) is false;
+            return ChessPathValidator.Inbounds(Rank, File) is false;
         }
     }
 
@@ -22,10 +22,10 @@ public abstract class Chess : IChess
         Unicode = unicode;
     }
 
-    public void Set(int rank, int file)
+    public void Set(int newRank, int newFile)
     {
-        Rank = rank;
-        File = file;
+        Rank = newRank;
+        File = newFile;
     }
 
     public void Kill()

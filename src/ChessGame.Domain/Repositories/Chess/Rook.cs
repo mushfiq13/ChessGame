@@ -17,7 +17,7 @@ public class Rook : Chess
             : targetFile > File ? +1
             : -1;
 
-        return IsKilled == false && ChessQuery.FindChessCanMeetTarget(tiles, (Rank, File),
+        return IsKilled == false && ChessPathValidator.FindChessCanMeetTarget(tiles, (Rank, File),
             (targetRank, targetFile), xAxis, yAxis);
     }
 }

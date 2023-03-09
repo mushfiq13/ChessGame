@@ -3,11 +3,14 @@ using ChessGame.Domain;
 
 namespace ChessGame.Application;
 
-internal class ConsoleUICommands : IConsoleUICommands
+internal class UICommands : IUICommands
 {
     IConsoleManager _consoleManager = Factory.CreateConsoleManager();
 
-    public void DisplayMessage(string message) => _consoleManager.Messager.Message(message);
+    public void WriteMessage(string message) => _consoleManager.Messager.Message(message);
+
+    public void InvalidDataCapture()
+        => _consoleManager.Messager.InvalidDataCapture();
 
     public (int rank, int file) CaptureChess()
         => _consoleManager.Input.SelectMoveableChess();
@@ -25,4 +28,15 @@ internal class ConsoleUICommands : IConsoleUICommands
     public void DisplayCurrentTurn(object obj) => _consoleManager.Output.CurrentTurn(obj);
 
     public void ResetConsole() => _consoleManager.Output.ResetConsole();
+
+    public void DrawUI(IChessCore[,] tiles,
+        string currentTurner,
+        IChessCore[] whiteCaptured,
+        IChessCore[] blackCaptured)
+    {
+        DrawLogo();
+        DrawTiles(tiles);
+        DisplayCapturedItems(whiteCaptured, blackCaptured);
+        DisplayCurrentTurn(currentTurner);
+    }
 }

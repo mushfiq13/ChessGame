@@ -13,7 +13,7 @@ public class Bishop : Chess
         var xAxis = new[] { +1, +1, -1, -1 };
         var yAxis = new[] { +1, -1, +1, -1 };
 
-        return IsKilled == false && ChessQuery.FindChessCanMeetTarget(tiles, (Rank, File),
+        return ChessPathValidator.FindChessCanMeetTarget(tiles, this,
             (targetRank, targetFile), xAxis, yAxis);
     }
 }

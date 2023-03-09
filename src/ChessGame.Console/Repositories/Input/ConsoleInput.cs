@@ -2,11 +2,10 @@
 
 public class ConsoleInput : IConsoleInput
 {
+    IConsoleMessager _messager = Factory.CreateConsoleMessager();
+
     public (int Rank, int File) SelectMoveableChess()
     {
-        Console.WriteLine();
-        Console.WriteLine("Select rank and file with this format : [0 0] and press enter:");
-
         return Reader();
     }
 
@@ -19,15 +18,19 @@ public class ConsoleInput : IConsoleInput
         while (true)
         {
             var input = Console.ReadLine();
+            var parts = input.Where(c => c != ' ').ToArray();
 
-            if (input.Length == 3
-                && char.IsDigit(input[0])
-                && input[1] == ' '
-                && char.IsDigit(input[2])
-                && Inbound(input[0], input[2]) is false)
-                return (input[0] - '0', input[2] - '0');
+            if (parts.Length == 2 && char.IsDigit(parts[0]) && char.IsDigit(parts[1]))
+            {
+                var rank = parts[0] - '0';
+                var file = parts[1] - '0';
 
-            Console.WriteLine("Inavlid input!");
+                if (Inbound(rank, file))
+                    return (rank, file);
+
+                _messager.IndexOutOfBound();
+            }
+            else _messager.InvalidDataCapture();
         };
     }
 }

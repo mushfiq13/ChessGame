@@ -2,11 +2,12 @@
 
 namespace ChessGame.Application;
 
-internal interface IConsoleUICommands
+internal interface IUICommands
 {
-    void DisplayMessage(string message);
-
     (int rank, int file) CaptureChess();
+
+    void WriteMessage(string message);
+    void InvalidDataCapture();
 
     void DrawLogo();
     void DisplayMenu();
@@ -15,4 +16,9 @@ internal interface IConsoleUICommands
     void DisplayCurrentTurn(object obj);
 
     void ResetConsole();
+
+    void DrawUI(IChessCore[,] tiles,
+        string currentTurner,
+        IChessCore[] whiteCaptured,
+        IChessCore[] blackCaptured);
 }

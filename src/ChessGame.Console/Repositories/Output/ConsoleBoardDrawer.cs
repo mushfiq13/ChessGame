@@ -15,7 +15,10 @@ public partial class ConsoleOutput
             for (var file = 0; file < totalFiles; file++)
             {
                 Colorize(tiles[rank, file], consoleBackgroundColor);
-                var output = FormatTile(tiles[rank, file]?.GetType().GetProperty("Unicode").GetValue(tiles[rank, file]));
+
+                var output = FormatTile(tiles[rank, file]?.GetType()
+                    .GetProperty("Unicode")
+                    .GetValue(tiles[rank, file]));
 
                 Console.Write(output);
                 Console.ResetColor();
@@ -24,8 +27,7 @@ public partial class ConsoleOutput
                    ? ConsoleColor.Red : ConsoleColor.Green;
             }
 
-            Console.Write("\r\n");
-            Console.ResetColor();
+            Console.WriteLine("\r");
         }
 
         Console.Write(FormatTile());
@@ -33,9 +35,7 @@ public partial class ConsoleOutput
         {
             Console.Write(FormatTile(file.ToString()));
         }
-        Console.Write("\r\n");
-
-        Console.WriteLine();
+        Console.WriteLine("\r");
     }
 
     private void Colorize(object obj, ConsoleColor consoleBackgroundColor = ConsoleColor.Green)
