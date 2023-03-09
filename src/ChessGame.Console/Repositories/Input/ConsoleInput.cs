@@ -1,6 +1,6 @@
 ﻿namespace ChessGame.ConsoleUI;
 
-public class ConsoleInput : IConsoleInput
+internal class ConsoleInput : IConsoleInput
 {
     IConsoleMessager _messager = Factory.CreateConsoleMessager();
 
@@ -30,7 +30,8 @@ public class ConsoleInput : IConsoleInput
 
                 _messager.IndexOutOfBound();
             }
-            else _messager.InvalidDataCapture();
+            else
+                _messager.InvalidDataCapture();
         };
     }
 }

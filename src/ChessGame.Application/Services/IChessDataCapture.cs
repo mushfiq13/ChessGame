@@ -4,7 +4,5 @@ namespace ChessGame.Application;
 
 internal interface IChessDataCapture
 {
-    (IChess source, (int rank, int file) target) Capture(
-        IChess[,] tiles,
-        ChessColor sourceColor);
+    (IChess source, (int rank, int file) target)? Capture(ChessColor sourceColor);
 }

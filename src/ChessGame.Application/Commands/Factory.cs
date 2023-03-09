@@ -8,6 +8,8 @@ internal static class Factory
     public static IBoardManager CreateBoardManager()
         => new ChessBoard(new IChess[ChessConstants.RANKS, ChessConstants.FILES]);
 
+    public static IGameServer CreateGameServer() => new GameServer();
+
     public static T CreateChess<T>(ChessColor color, string unicode, int rank, int file)
         where T : IChess
     {
@@ -19,11 +21,17 @@ internal static class Factory
         return (T)instance;
     }
 
-    public static IChessManipulator CreateChessManipulator() => new ChessManipulator();
+    public static IGenerateChess CreateChessCreator() => new GenerateChess();
+
+    public static IChessHandler CreateChessHandler() => new ChessHandler();
+
+    public static IChessDataCapture CreateChessDataCapture() => new ChessDataCapture();
 
     public static IConsoleManager CreateConsoleManager() => new ConsoleManager();
 
-    public static IUICommands CreateConsoleUICommands() => new UICommands();
+    public static IConsoleInput CreateConsoleInput() => new ConsoleInput();
 
-    public static IChessDataCapture CreateChessDataCapture() => new ChessDataCapture();
+    public static IConsoleOutput CreateConsoleOutput() => new ConsoleOutput();
+
+    public static IConsoleMessages CreateConsoleMessages() => new ConsoleMessages();
 }

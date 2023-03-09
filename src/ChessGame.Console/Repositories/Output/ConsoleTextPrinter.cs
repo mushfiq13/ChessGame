@@ -1,6 +1,6 @@
 ﻿namespace ChessGame.ConsoleUI;
 
-public partial class ConsoleOutput : IConsoleOutput
+internal partial class ConsoleOutput : IConsoleOutput
 {
     public void PrintLogo()
     {
@@ -31,7 +31,7 @@ public partial class ConsoleOutput : IConsoleOutput
 
         void PrintItems(object[] items)
         {
-            Console.BackgroundColor = ConsoleColor.Red;
+            Console.BackgroundColor = ConsoleColor.DarkYellow;
             foreach (var item in items)
             {
                 Console.Write($"{item.GetType().GetProperty("Unicode")?.GetValue(item)} ");

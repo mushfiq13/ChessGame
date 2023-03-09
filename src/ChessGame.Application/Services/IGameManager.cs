@@ -1,9 +1,6 @@
-﻿using ChessGame.Domain;
+﻿namespace ChessGame.Application;
 
-namespace ChessGame.Application;
-
-public interface IGameManager : IGameCoreManager, IDisposable
+public interface IGameManager
 {
-    IList<IChessCore> WhiteCaptured { get; }
-    IList<IChessCore> BlackCaptured { get; }
+    void Play();
 }

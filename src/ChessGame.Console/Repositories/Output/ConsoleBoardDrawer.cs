@@ -1,6 +1,6 @@
 ﻿namespace ChessGame.ConsoleUI;
 
-public partial class ConsoleOutput
+internal partial class ConsoleOutput
 {
     public void DrawBoard(in object[,] tiles)
     {
@@ -35,13 +35,16 @@ public partial class ConsoleOutput
         {
             Console.Write(FormatTile(file.ToString()));
         }
+
         Console.WriteLine("\r");
     }
 
     private void Colorize(object obj, ConsoleColor consoleBackgroundColor = ConsoleColor.Green)
     {
         Console.BackgroundColor = consoleBackgroundColor;
-        Console.ForegroundColor = obj?.GetType().GetProperty("Color").GetValue(obj)
+        Console.ForegroundColor = obj?.GetType()
+            .GetProperty("Color")
+            .GetValue(obj)
             .ToString()
             .Contains("White", StringComparison.OrdinalIgnoreCase) is true
                 ? ConsoleColor.White : ConsoleColor.Black;
@@ -49,12 +52,9 @@ public partial class ConsoleOutput
 
     private string FormatTile(object? obj = null)
     {
-        var len = (obj ?? " ").ToString().Length;
-        var chars = 7 - len;
-        var leftPart = new string(' ', chars / 2);
-        var rightPart = new string(' ', chars / 2 + chars % 2);
+        var padding = new string(' ', 3);
 
-        return $"{leftPart}{obj ?? " "}{rightPart}";
+        return $"{padding}{obj ?? " "}{padding}";
     }
 
     public void ResetConsole() => Console.Clear();

@@ -1,6 +1,6 @@
 ﻿namespace ChessGame.Domain;
 
-public class ChessDataGetter
+internal class ChessDataGetter
 {
     public static (string unicode, int rank, int[] files) GetFixedData(ChessType type, ChessColor color)
     {

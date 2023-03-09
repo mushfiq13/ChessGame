@@ -1,6 +1,6 @@
 ﻿namespace ChessGame.ConsoleUI;
 
-public class ConsoleMessager : IConsoleMessager
+internal class ConsoleMessager : IConsoleMessager
 {
     public void Message(string message) => Console.WriteLine(message);
 
