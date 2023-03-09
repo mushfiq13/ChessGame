@@ -7,9 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ChessGame.Console\ChessGame.ConsoleUI.csproj" />
-    <ProjectReference Include="..\ChessGame.Domain\ChessGame.Domain.csproj" />
-    <ProjectReference Include="..\ChessGame.Presentation\ChessGame.Console.csproj" />
+    <ProjectReference Include="..\ChessGame.ConsoleUI\ChessGame.ConsoleUI.csproj" />
+    <ProjectReference Include="..\ChessGame.Domain\ChessGame.Domain.csproj" />    
   </ItemGroup>
 
 </Project>
