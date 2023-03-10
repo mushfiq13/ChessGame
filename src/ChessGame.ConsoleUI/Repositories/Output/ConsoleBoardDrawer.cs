@@ -58,6 +58,4 @@ internal partial class ConsoleOutput
 
         return $"{padding}{obj ?? " "}{padding}";
     }
-
-    public void ResetConsole() => Console.Clear();
 }

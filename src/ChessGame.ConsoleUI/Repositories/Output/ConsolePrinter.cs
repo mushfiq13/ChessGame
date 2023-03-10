@@ -46,11 +46,10 @@ internal partial class ConsoleOutput : IConsoleOutput
 
     private void PrintCapturedItems(object[] items, string itemType)
     {
-        if (items == null || items.Length == 0)
+        if (items == null)
             return;
 
-        Console.WriteLine("---------------------------------------------");
-        Console.Write("${itemType} captured: ");
+        Console.Write($"\n{itemType} captured: ");
 
         Console.BackgroundColor = ConsoleColor.DarkYellow;
 
@@ -63,4 +62,6 @@ internal partial class ConsoleOutput : IConsoleOutput
         Console.WriteLine();
         Console.WriteLine("---------------------------------------------");
     }
+
+    public void ResetConsole() => Console.Clear();
 }
