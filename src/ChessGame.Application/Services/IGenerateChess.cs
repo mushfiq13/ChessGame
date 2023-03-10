@@ -4,5 +4,5 @@ namespace ChessGame.Application;
 
 internal interface IGenerateChess
 {
-    void CreateChessSet(ChessColor color);
+    List<IChess> CreateChessSet(ChessColor color);
 }

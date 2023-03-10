@@ -2,7 +2,7 @@
 
 internal partial class ConsoleOutput : IConsoleOutput
 {
-    public void PrintLogo()
+    public IConsoleOutput PrintLogo()
     {
         Console.WriteLine("    ======================================");
         Console.WriteLine("       _____ _    _ ______  _____ _____");
@@ -12,35 +12,55 @@ internal partial class ConsoleOutput : IConsoleOutput
         Console.WriteLine("     | |____| |  | | |____ ____) |___) |");
         Console.WriteLine("      \\_____|_|  |_|______|_____/_____/\n");
         Console.WriteLine("    ======================================\n");
+
+        return this;
     }
 
-    public void PrintMenu()
-        => Console.WriteLine("Commands: (N)ew game\t (M)ove \t(U)ndo \t(Q)uit ");
-
-    public void PrintCapturedItems(object[] whiteCaptured, object[] blackCaptured)
+    public IConsoleOutput PrintMenu()
     {
-        Console.WriteLine("---------------------------------------------");
+        Console.WriteLine("Commands: (N)ew game\t (M)ove \t(U)ndo \t(Q)uit ");
 
-        Console.Write("WHITE captured: ");
-        PrintItems(whiteCaptured);
-
-        Console.Write("BLACK captured: ");
-        PrintItems(blackCaptured);
-
-        Console.WriteLine("---------------------------------------------");
-
-        void PrintItems(object[] items)
-        {
-            Console.BackgroundColor = ConsoleColor.DarkYellow;
-            foreach (var item in items)
-            {
-                Console.Write($"{item.GetType().GetProperty("Unicode")?.GetValue(item)} ");
-            }
-            Console.ResetColor();
-            Console.WriteLine();
-        }
+        return this;
     }
 
-    public void CurrentTurn(object value)
-     => Console.WriteLine($"Current turn: {value}");
+    public IConsoleOutput PrintWhiteCapturedItems(object[] whiteCaptured)
+    {
+        PrintCapturedItems(whiteCaptured, "WHTIE");
+
+        return this;
+    }
+
+    public IConsoleOutput PrintBlackCapturedItems(object[] blackCaptured)
+    {
+        PrintCapturedItems(blackCaptured, "BLACK");
+
+        return this;
+    }
+
+    public IConsoleOutput CurrentTurn(object value)
+    {
+        Console.WriteLine($"Current turn: {value}");
+
+        return this;
+    }
+
+    private void PrintCapturedItems(object[] items, string itemType)
+    {
+        if (items == null || items.Length == 0)
+            return;
+
+        Console.WriteLine("---------------------------------------------");
+        Console.Write("${itemType} captured: ");
+
+        Console.BackgroundColor = ConsoleColor.DarkYellow;
+
+        foreach (var item in items)
+        {
+            Console.Write($"{item.GetType().GetProperty("Unicode")?.GetValue(item)} ");
+        }
+
+        Console.ResetColor();
+        Console.WriteLine();
+        Console.WriteLine("---------------------------------------------");
+    }
 }

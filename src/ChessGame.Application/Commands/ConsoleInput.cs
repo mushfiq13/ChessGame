@@ -1,7 +1,11 @@
-﻿namespace ChessGame.Application;
+﻿using ChessGame.ConsoleUI;
+
+namespace ChessGame.Application;
 
 internal class ConsoleInput : IConsoleInput
 {
+    internal IConsoleManager _consoleManager = Factory.CreateConsoleManager();
+
     public (int rank, int file) CaptureChess()
-        => Singleton.ConsoleManager.Input.SelectMoveableChess();
+        => _consoleManager.Input.SelectMoveableChess();
 }

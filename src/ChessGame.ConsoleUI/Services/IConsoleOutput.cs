@@ -2,10 +2,11 @@
 
 public interface IConsoleOutput
 {
-    void PrintLogo();
-    void PrintMenu();
-    void DrawBoard(in object[,] tiles);
-    void PrintCapturedItems(object[] whiteCaptured, object[] blackCaptured);
-    void CurrentTurn(object value);
+    IConsoleOutput PrintLogo();
+    IConsoleOutput PrintMenu();
+    IConsoleOutput DrawBoard(in object[,] tiles);
+    IConsoleOutput PrintWhiteCapturedItems(object[] whiteCaptured);
+    IConsoleOutput PrintBlackCapturedItems(object[] blackCaptured);
+    IConsoleOutput CurrentTurn(object value);
     void ResetConsole();
 }

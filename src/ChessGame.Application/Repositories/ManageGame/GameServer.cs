@@ -14,10 +14,12 @@ internal class GameServer : IGameServer
 
     public void Run()
     {
-        DrawUI();
-
         while (GameOver() is false)
         {
+            Singleton.ConsoleOutput.DrawUI(WhiteInTurn ? "White" : "Black",
+                WhiteCaptured.ToArray(),
+                BlackCaptured.ToArray());
+
             var captured = _dataCapturer.Capture(WhiteInTurn
                 ? ChessColor.White
                 : ChessColor.Black);
@@ -27,10 +29,14 @@ internal class GameServer : IGameServer
 
             var target = Singleton.BoardManager.Tiles[(int)captured?.target.rank,
                 (int)captured?.target.file];
-            MaybeTargetExistAndItsLastMoment(target); // target can be killable
 
-            Winner = ChessDataGetter.IsKingsUnicode(target?.Unicode) // target was king!
-                ? captured?.source : null;
+            if (target is not null)
+            {
+                _handler.Kill(target);
+                StoreKilledChess(target);
+                Winner = ChessDataGetter.IsKingsUnicode(target?.Unicode)
+                    ? captured?.source : null;
+            }
 
             _handler.Move(captured?.source,
                 (int)captured?.target.rank,
@@ -40,30 +46,16 @@ internal class GameServer : IGameServer
             Singleton.ConsoleMessages.WriteMessage("\nUpdating....");
             Thread.Sleep(1 * 2000);
             Singleton.ConsoleOutput.ResetConsole();
-            DrawUI();
         }
     }
 
-    private bool GameOver() => Winner is not null;
-
-    private void TogglePlayer() => WhiteInTurn = !WhiteInTurn;
-
-    private void MaybeTargetExistAndItsLastMoment(IChess item)
+    public void Clear()
     {
-        if (item is null) return;
-
-        if (item.Color == ChessColor.White)
-            WhiteCaptured.Add(item);
-        else
-            BlackCaptured.Add(item);
-
-        _handler.Kill(item);
+        WhiteCaptured.Clear();
+        BlackCaptured.Clear();
+        WhiteInTurn = true;
+        Winner = null;
     }
-
-    private void DrawUI()
-        => Singleton.ConsoleOutput.DrawUI(WhiteInTurn ? "White" : "Black",
-            WhiteCaptured.ToArray(),
-            BlackCaptured.ToArray());
 
     public void Dispose()
     {
@@ -71,5 +63,19 @@ internal class GameServer : IGameServer
         BlackCaptured.Clear();
         _dataCapturer = null;
         _handler = null;
+    }
+
+    private bool GameOver() => Winner is not null;
+
+    private void TogglePlayer() => WhiteInTurn = !WhiteInTurn;
+
+    private void StoreKilledChess(IChess item)
+    {
+        if (item is null) return;
+
+        if (item.Color == ChessColor.White)
+            WhiteCaptured.Add(item);
+        else
+            BlackCaptured.Add(item);
     }
 }

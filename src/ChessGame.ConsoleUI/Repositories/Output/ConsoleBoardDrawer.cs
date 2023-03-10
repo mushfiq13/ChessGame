@@ -2,7 +2,7 @@
 
 internal partial class ConsoleOutput
 {
-    public void DrawBoard(in object[,] tiles)
+    public IConsoleOutput DrawBoard(in object[,] tiles)
     {
         var totalRanks = tiles.GetLength(0);
         var totalFiles = tiles.GetLength(1);
@@ -37,6 +37,8 @@ internal partial class ConsoleOutput
         }
 
         Console.WriteLine("\r");
+
+        return this;
     }
 
     private void Colorize(object obj, ConsoleColor consoleBackgroundColor = ConsoleColor.Green)

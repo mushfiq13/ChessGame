@@ -8,9 +8,10 @@ internal class ChessHandler : IChessHandler
     {
         if (item is null) return false;
 
-        Singleton.BoardManager.Remove(item.Rank, item.File);
+        Singleton.BoardManager
+            .Remove(item.Rank, item.File)
+            .SetTo(item, newRank, newFile);
         item.Set(newRank, newFile);
-        Singleton.BoardManager.SetTo(item, newRank, newFile);
 
         return true;
     }

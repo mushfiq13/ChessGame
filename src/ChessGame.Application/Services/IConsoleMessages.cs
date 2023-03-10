@@ -4,4 +4,5 @@ internal interface IConsoleMessages
 {
     void InvalidDataCapture();
     void WriteMessage(string message);
+    void EndApplication();
 }

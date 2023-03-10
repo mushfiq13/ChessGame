@@ -10,4 +10,5 @@ internal interface IGameServer : IDisposable
     IChessCore? Winner { get; }
 
     void Run();
+    void Clear();
 }

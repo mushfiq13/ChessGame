@@ -1,10 +1,16 @@
-﻿namespace ChessGame.Application;
+﻿using ChessGame.ConsoleUI;
+
+namespace ChessGame.Application;
 
 internal class ConsoleMessages : IConsoleMessages
 {
+    internal IConsoleManager _consoleManager = Factory.CreateConsoleManager();
+
     public void WriteMessage(string message)
-        => Singleton.ConsoleManager.Messager.Message(message);
+        => _consoleManager.Messager.Message(message);
 
     public void InvalidDataCapture()
-        => Singleton.ConsoleManager.Messager.InvalidDataCapture();
+        => _consoleManager.Messager.InvalidDataCapture();
+
+    public void EndApplication() => _consoleManager.Messager.EndApplication();
 }
