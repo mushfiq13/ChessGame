@@ -6,6 +6,6 @@ internal class ConsoleInput : IConsoleInput
 {
     internal IConsoleManager _consoleManager = Factory.CreateConsoleManager();
 
-    public (int rank, int file) CaptureChess()
-        => _consoleManager.Input.SelectMoveableChess();
+    public object CaptureTile()
+        => _consoleManager.Input.ReadTileLocation();
 }

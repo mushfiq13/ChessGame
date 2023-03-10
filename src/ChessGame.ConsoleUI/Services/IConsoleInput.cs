@@ -2,5 +2,5 @@
 
 public interface IConsoleInput
 {
-    (int Rank, int File) SelectMoveableChess();
+    object ReadTileLocation();
 }

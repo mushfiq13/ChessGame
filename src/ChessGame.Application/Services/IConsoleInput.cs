@@ -2,5 +2,5 @@
 
 internal interface IConsoleInput
 {
-    (int rank, int file) CaptureChess();
+    object CaptureTile();
 }

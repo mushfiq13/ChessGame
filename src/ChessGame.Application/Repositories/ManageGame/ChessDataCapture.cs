@@ -31,9 +31,11 @@ internal class ChessDataCapture : IChessDataCapture
 
     private (int rank, int file) Capture(ChessColor color, Func<IChess, ChessColor, bool> validator)
     {
-        (int rank, int file) = Singleton.ConsoleInput.CaptureChess();
+        var input = Singleton.ConsoleInput.CaptureTile() as string;
+        (int rank, int file) = GetLocation(input);
 
-        if (validator(Singleton.BoardManager.Tiles[rank, file], color))
+        if (Inbound(rank, file)
+           && validator(Singleton.BoardManager.Tiles[rank, file], color))
             return (rank, file);
 
         Singleton.ConsoleMessages.InvalidDataCapture();
@@ -46,4 +48,18 @@ internal class ChessDataCapture : IChessDataCapture
 
     private bool TargetDataValidator(IChess item, ChessColor restrictedColor)
         => item?.Color != restrictedColor;
+
+    private (int, int) GetLocation(string input)
+    {
+        var parts = input.Where(c => c != ' ').ToArray();
+
+        if (parts.Length == 2 && char.IsDigit(parts[0]) && char.IsDigit(parts[1]))
+            return (parts[0] - '0', parts[1] - '0');
+
+        return (-1, -1);
+    }
+
+    private bool Inbound(int rank, int file)
+            => rank >= 0 && file >= 0
+                && rank < 8 && file < 8;
 }
