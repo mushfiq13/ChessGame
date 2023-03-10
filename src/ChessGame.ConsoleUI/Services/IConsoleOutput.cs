@@ -5,8 +5,7 @@ public interface IConsoleOutput
     IConsoleOutput PrintLogo();
     IConsoleOutput PrintMenu();
     IConsoleOutput DrawBoard(in object[,] tiles);
-    IConsoleOutput PrintWhiteCapturedItems(object[] whiteCaptured);
-    IConsoleOutput PrintBlackCapturedItems(object[] blackCaptured);
+    IConsoleOutput PrintCapturedItems(object[] items, string chessType);
     IConsoleOutput CurrentTurn(object value);
     void ResetConsole();
 }

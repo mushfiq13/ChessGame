@@ -14,7 +14,9 @@ internal class GameServer : IGameServer
 
     public void Run()
     {
-        while (GameOver() is false)
+        var currentPlayerTriedInvalidMove = 0;
+
+        while (GameOver() is false && currentPlayerTriedInvalidMove < 5)
         {
             Singleton.ConsoleOutput.DrawUI(WhiteInTurn ? "White" : "Black",
                 WhiteCaptured.ToArray(),
@@ -25,7 +27,10 @@ internal class GameServer : IGameServer
                 : ChessColor.Black);
 
             if (captured == null)
+            {
+                currentPlayerTriedInvalidMove++;
                 continue;
+            }
 
             var target = Singleton.BoardManager.Tiles[(int)captured?.target.rank,
                 (int)captured?.target.file];
@@ -46,6 +51,7 @@ internal class GameServer : IGameServer
             Singleton.ConsoleMessages.WriteMessage("\nUpdating....");
             Thread.Sleep(1 * 2000);
             Singleton.ConsoleOutput.ResetConsole();
+            currentPlayerTriedInvalidMove = 0;
         }
     }
 

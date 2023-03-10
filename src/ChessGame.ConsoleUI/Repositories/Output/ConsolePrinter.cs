@@ -23,20 +23,6 @@ internal partial class ConsoleOutput : IConsoleOutput
         return this;
     }
 
-    public IConsoleOutput PrintWhiteCapturedItems(object[] whiteCaptured)
-    {
-        PrintCapturedItems(whiteCaptured, "WHTIE");
-
-        return this;
-    }
-
-    public IConsoleOutput PrintBlackCapturedItems(object[] blackCaptured)
-    {
-        PrintCapturedItems(blackCaptured, "BLACK");
-
-        return this;
-    }
-
     public IConsoleOutput CurrentTurn(object value)
     {
         Console.WriteLine($"Current turn: {value}");
@@ -44,12 +30,12 @@ internal partial class ConsoleOutput : IConsoleOutput
         return this;
     }
 
-    private void PrintCapturedItems(object[] items, string itemType)
+    public IConsoleOutput PrintCapturedItems(object[] items, string chessType)
     {
         if (items == null)
-            return;
+            return this;
 
-        Console.Write($"\n{itemType} captured: ");
+        Console.Write($"\n{chessType} captured: ");
 
         Console.BackgroundColor = ConsoleColor.DarkYellow;
 
@@ -61,6 +47,8 @@ internal partial class ConsoleOutput : IConsoleOutput
         Console.ResetColor();
         Console.WriteLine();
         Console.WriteLine("---------------------------------------------");
+
+        return this;
     }
 
     public void ResetConsole() => Console.Clear();

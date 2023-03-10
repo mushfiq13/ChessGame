@@ -6,18 +6,19 @@ public class GameManager : IGameManager
 {
     IGenerateChess _generateChess = Factory.CreateChessCreator();
     IGameServer _gameServer = Factory.CreateGameServer();
-    IList<IChess> _whiteChessSet;
-    IList<IChess> _blackChessSet;
+
+    public IList<IChess> WhiteChessSet { get; private set; }
+    public IList<IChess> BlackChessSet { get; private set; }
 
     public GameManager()
     {
-        _whiteChessSet = _generateChess.CreateChessSet(ChessColor.White);
-        _blackChessSet = _generateChess.CreateChessSet(ChessColor.Black);
+        WhiteChessSet = _generateChess.CreateChessSet(ChessColor.White);
+        BlackChessSet = _generateChess.CreateChessSet(ChessColor.Black);
     }
 
     public void Play()
     {
-        AddChessIntoBoard();
+        SetupChessIntoBoard();
         _gameServer.Run();
         GameCompletionMessages();
     }
@@ -39,12 +40,12 @@ public class GameManager : IGameManager
         Singleton.ConsoleMessages.EndApplication();
     }
 
-    private void AddChessIntoBoard()
+    private void SetupChessIntoBoard()
     {
-        foreach (var item in _whiteChessSet)
+        foreach (var item in WhiteChessSet)
             Singleton.BoardManager.Add(item);
 
-        foreach (var item in _blackChessSet)
+        foreach (var item in BlackChessSet)
             Singleton.BoardManager.Add(item);
     }
 

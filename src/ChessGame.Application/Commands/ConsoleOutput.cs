@@ -14,8 +14,8 @@ internal class ConsoleOutput : IConsoleOutput
         _consoleManager.Output
             .PrintLogo()
             .DrawBoard(Singleton.BoardManager.Tiles)
-            .PrintWhiteCapturedItems(whiteCaptured)
-            .PrintBlackCapturedItems(blackCaptured)
+            .PrintCapturedItems(whiteCaptured, "WHITE")
+            .PrintCapturedItems(blackCaptured, "BLACK")
             .CurrentTurn(currentPlayer);
 
         // This should be added in next.
