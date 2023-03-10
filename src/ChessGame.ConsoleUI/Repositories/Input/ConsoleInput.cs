@@ -6,4 +6,9 @@ internal class ConsoleInput : IConsoleInput
     {
         return Console.ReadLine();
     }
+
+    public string ReadText()
+    {
+        return Console.ReadLine();
+    }
 }

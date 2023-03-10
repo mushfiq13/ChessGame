@@ -5,7 +5,7 @@ namespace ChessGame.Application;
 
 internal static class Factory
 {
-    public static IBoardManager CreateBoardManager()
+    public static IChessBoard CreateChessBoard()
         => new ChessBoard(new IChess[ChessConstants.RANKS, ChessConstants.FILES]);
 
     public static IGameServer CreateGameServer() => new GameServer();
@@ -21,11 +21,15 @@ internal static class Factory
         return (T)instance;
     }
 
+    public static ICaptureProcessor CreateCaptureProcessor() => new CaptureProcessor();
+
+    public static ICapturer CreateCapturer() => new Capturer();
+
+    public static ICaptureValidator CreateCaptureValidator() => new CaptureValidator();
+
     public static IGenerateChess CreateChessCreator() => new GenerateChess();
 
     public static IChessHandler CreateChessHandler() => new ChessHandler();
-
-    public static IChessDataCapture CreateChessDataCapture() => new ChessDataCapture();
 
     public static IConsoleManager CreateConsoleManager() => new ConsoleManager();
 

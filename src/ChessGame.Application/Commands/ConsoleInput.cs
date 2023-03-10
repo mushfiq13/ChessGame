@@ -8,4 +8,7 @@ internal class ConsoleInput : IConsoleInput
 
     public object CaptureTile()
         => _consoleManager.Input.ReadTileLocation();
+
+    public string ReadText()
+        => _consoleManager.Input.ReadText() as string;
 }

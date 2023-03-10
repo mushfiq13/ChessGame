@@ -4,8 +4,8 @@ namespace ChessGame.Application;
 
 internal class GameServer : IGameServer
 {
-    IChessDataCapture _dataCapturer = Factory.CreateChessDataCapture();
     IChessHandler _handler = Factory.CreateChessHandler();
+    ICaptureProcessor _captureProcessor = Factory.CreateCaptureProcessor();
 
     public IList<IChessCore> WhiteCaptured { get; private set; } = new List<IChessCore>();
     public IList<IChessCore> BlackCaptured { get; private set; } = new List<IChessCore>();
@@ -18,34 +18,33 @@ internal class GameServer : IGameServer
 
         while (GameOver() is false && currentPlayerTriedInvalidMove < 5)
         {
-            Singleton.ConsoleOutput.DrawUI(WhiteInTurn ? "White" : "Black",
-                WhiteCaptured.ToArray(),
-                BlackCaptured.ToArray());
+            var movingColor = WhiteInTurn ? ChessColor.White : ChessColor.Black;
 
-            var captured = _dataCapturer.Capture(WhiteInTurn
-                ? ChessColor.White
-                : ChessColor.Black);
+            if (currentPlayerTriedInvalidMove == 0)
+                Singleton.ConsoleOutput.DrawUI(WhiteInTurn ? "White" : "Black",
+                    WhiteCaptured.ToArray(),
+                    BlackCaptured.ToArray());
 
-            if (captured == null)
+            var capturedData = _captureProcessor.Run(movingColor);
+            var sourceChess = capturedData.sourceChess;
+            var targetTile = capturedData.targetTile;
+
+            if (sourceChess is null || targetTile is null)
             {
-                currentPlayerTriedInvalidMove++;
-                continue;
+                return;
             }
 
-            var target = Singleton.BoardManager.Tiles[(int)captured?.target.rank,
-                (int)captured?.target.file];
+            var tarRank = targetTile.Value.rank;
+            var tarFile = targetTile.Value.file;
+            IChess? targetChess = Singleton.ChessBoard[tarRank, tarFile];
 
-            if (target is not null)
-            {
-                _handler.Kill(target);
-                StoreKilledChess(target);
-                Winner = ChessDataGetter.IsKingsUnicode(target?.Unicode)
-                    ? captured?.source : null;
-            }
+            _handler.Kill(targetChess);
+            StoreKilledChess(targetChess);
 
-            _handler.Move(captured?.source,
-                (int)captured?.target.rank,
-                (int)captured?.target.file);
+            Winner = ChessDataGetter.IsKingsUnicode(targetChess?.Unicode)
+                ? sourceChess : null;
+
+            _handler.Move(sourceChess, tarRank, tarFile);
 
             TogglePlayer();
             Singleton.ConsoleMessages.WriteMessage("\nUpdating....");
@@ -67,7 +66,6 @@ internal class GameServer : IGameServer
     {
         WhiteCaptured.Clear();
         BlackCaptured.Clear();
-        _dataCapturer = null;
         _handler = null;
     }
 

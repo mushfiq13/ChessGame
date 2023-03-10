@@ -3,4 +3,5 @@
 internal interface IConsoleInput
 {
     object CaptureTile();
+    string ReadText();
 }

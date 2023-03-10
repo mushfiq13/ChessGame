@@ -2,7 +2,7 @@
 
 namespace ChessGame.Application;
 
-public interface IGameManager : IDisposable
+public interface IGameManager
 {
     IList<IChess> WhiteChessSet { get; }
     IList<IChess> BlackChessSet { get; }

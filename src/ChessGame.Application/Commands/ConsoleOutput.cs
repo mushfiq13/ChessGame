@@ -13,7 +13,7 @@ internal class ConsoleOutput : IConsoleOutput
     {
         _consoleManager.Output
             .PrintLogo()
-            .DrawBoard(Singleton.BoardManager.Tiles)
+            .DrawBoard(Singleton.ChessBoard.Tiles)
             .PrintCapturedItems(whiteCaptured, "WHITE")
             .PrintCapturedItems(blackCaptured, "BLACK")
             .CurrentTurn(currentPlayer);

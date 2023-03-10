@@ -2,18 +2,10 @@
 
 namespace ChessGame.Application;
 
-internal class Singleton : IDisposable
+internal class Singleton
 {
-    internal static IBoardManager BoardManager = Factory.CreateBoardManager();
-    internal static IConsoleInput ConsoleInput = Factory.CreateConsoleInput();
-    internal static IConsoleOutput ConsoleOutput = Factory.CreateConsoleOutput();
-    internal static IConsoleMessages ConsoleMessages = Factory.CreateConsoleMessages();
-
-    public void Dispose()
-    {
-        BoardManager = null;
-        ConsoleInput = null;
-        ConsoleOutput = null;
-        ConsoleMessages = null;
-    }
+    internal readonly static IChessBoard ChessBoard = Factory.CreateChessBoard();
+    internal readonly static IConsoleInput ConsoleInput = Factory.CreateConsoleInput();
+    internal readonly static IConsoleOutput ConsoleOutput = Factory.CreateConsoleOutput();
+    internal readonly static IConsoleMessages ConsoleMessages = Factory.CreateConsoleMessages();
 }

@@ -43,14 +43,9 @@ public class GameManager : IGameManager
     private void SetupChessIntoBoard()
     {
         foreach (var item in WhiteChessSet)
-            Singleton.BoardManager.Add(item);
+            Singleton.ChessBoard.Add(item);
 
         foreach (var item in BlackChessSet)
-            Singleton.BoardManager.Add(item);
-    }
-
-    public void Dispose()
-    {
-        Singleton.BoardManager = null;
+            Singleton.ChessBoard.Add(item);
     }
 }
