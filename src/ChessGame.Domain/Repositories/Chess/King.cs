@@ -7,13 +7,13 @@ public class King : Chess
     {
     }
 
-    public override bool IsMoveable(in IChessCore[,] tiles, int targetRank, int targetFile)
+    public override bool IsMoveable(IChessCore[,] tiles, (int rank, int file) destination)
     {
         // King can go only to these directions.
-        var xAxis = new[] { +1, +1, +0, -1, -1, -1, +0, +1 };
-        var yAxis = new[] { +0, +1, +1, +1, +0, -1, -1, -1 };
+        var xDir = new[] { +1, +1, +0, -1, -1, -1, +0, +1 };
+        var yDir = new[] { +0, +1, +1, +1, +0, -1, -1, -1 };
 
         return ChessPathValidator.FindChessCanMeetTarget(tiles, this,
-            (targetRank, targetFile), xAxis, yAxis);
+            destination, xDir, yDir);
     }
 }

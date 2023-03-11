@@ -4,7 +4,7 @@ namespace ChessGame.Application;
 
 internal class CaptureValidator : ICaptureValidator
 {
-    public bool Validate(int? rank, int? file, Predicate<ChessColor?>? validator)
+    public bool Validate(int rank, int file, Predicate<ChessColor?>? validator)
     {
         try
         {
@@ -12,14 +12,14 @@ internal class CaptureValidator : ICaptureValidator
                 throw new InvalidDataException();
 
             if (validator is not null
-                && validator(Singleton.ChessBoard[(int)rank, (int)file]?.Color) is false)
+                && validator(Singleton.ChessBoard[rank, file]?.Color) is false)
                 throw new InvalidDataException();
 
             return true;
         }
         catch
         {
-            Singleton.ConsoleMessages.InvalidDataCapture();
+            Singleton.Logger.LogError("Location is not valid!");
         }
 
         return false;

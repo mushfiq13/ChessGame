@@ -6,8 +6,8 @@ public interface IChessBoard
 
     IChess this[int rank, int file] { get; }
 
-    IChessBoard Add(in IChess item);
-    IChessBoard Add(in IChess item, int rank, int file);
+    IChessBoard Add(IChess item);
+    IChessBoard Put(IChess item, int rank, int file);
     IChessBoard Remove(int rank, int file);
 
     void Clear();

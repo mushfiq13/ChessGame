@@ -20,22 +20,26 @@ internal static class Factory
 
         return (T)instance;
     }
+    public static IChessSetCreator CreateChessSetCreator() => new ChessSetCreator();
 
+    public static IChessHandler CreateChessHandler() => new ChessHandler();
+
+    // Capture
     public static ICaptureProcessor CreateCaptureProcessor() => new CaptureProcessor();
 
     public static ICapturer CreateCapturer() => new Capturer();
 
     public static ICaptureValidator CreateCaptureValidator() => new CaptureValidator();
 
-    public static IGenerateChess CreateChessCreator() => new GenerateChess();
+    public static ISourceTileCaptureHandler CreateSourceTileCaptureHandler(int maxCapturingLimit = 1)
+        => new SourceTileCaptureHandler(maxCapturingLimit);
 
-    public static IChessHandler CreateChessHandler() => new ChessHandler();
+    public static ITargetTileCaptureHandler CreateTargetTileCaptureHandler(int maxCapturingLimit = 1)
+        => new TargetTileCaptureHandler(maxCapturingLimit);
 
-    public static IConsoleManager CreateConsoleManager() => new ConsoleManager();
+    // Console
+    public static IConsoleIOManager CreateConsoleIOManager() => new ConsoleIOManager();
 
-    public static IConsoleInput CreateConsoleInput() => new ConsoleInput();
+    public static ILogger CreateLogger() => new Logger();
 
-    public static IConsoleOutput CreateConsoleOutput() => new ConsoleOutput();
-
-    public static IConsoleMessages CreateConsoleMessages() => new ConsoleMessages();
 }

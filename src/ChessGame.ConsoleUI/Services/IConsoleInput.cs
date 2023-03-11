@@ -2,6 +2,6 @@
 
 public interface IConsoleInput
 {
-    object ReadTileLocation();
+    string Reader();
     string ReadText();
 }

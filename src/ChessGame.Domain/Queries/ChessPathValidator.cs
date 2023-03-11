@@ -2,35 +2,46 @@
 
 internal class ChessPathValidator
 {
-    public static bool FindChessCanMeetTarget(in IChessCore[,] tiles, IChessCore source,
-       (int rank, int file) target, int[] xDirection, int[] yDirection)
+    public static bool FindChessCanMeetTarget(IChessCore[,] tiles,
+        IChessCore sourceChess,
+       (int rank, int file) targetTile,
+       int[] xDir,
+       int[] yDir)
     {
-        var canGo = false;
-
-        for (var i = 0; i < xDirection.Length && canGo == false; ++i)
+        for (var i = 0; i < xDir.Length; ++i)
         {
-            canGo = FindChessCanMeetTarget(tiles, source,
-                (source.Rank, source.File), target, xDirection[i], yDirection[i]);
+            if (FindChessCanMeetTarget(tiles,
+                sourceChess,
+                currentTile: (sourceChess.Rank, sourceChess.File),
+                targetTile,
+                xDir[i],
+                yDir[i]))
+                return true;
         }
 
-        return canGo;
+        return false;
     }
 
-    public static bool FindChessCanMeetTarget(in IChessCore[,] tiles, IChessCore source,
-        (int rank, int file) current, (int rank, int file) target, int xDirection, int yDirection)
+    public static bool FindChessCanMeetTarget(IChessCore[,] tiles,
+        IChessCore sourceChess,
+        (int rank, int file) currentTile,
+        (int rank, int file) targetTile,
+        int xDir,
+        int yDir)
     {
-        (int rank, int file) new_move = (current.rank + xDirection, current.file + yDirection);
+        (int rank, int file) newMove = (currentTile.rank + xDir, currentTile.file + yDir);
 
-        if (Inbounds(new_move.rank, new_move.file) == false)
+        if (Inbounds(newMove.rank, newMove.file) == false
+            || sourceChess?.Color == tiles[newMove.rank, newMove.file]?.Color) // same type of chess appears
             return false;
-        if (tiles[source.Rank, source.File]?.Color == tiles[new_move.rank, new_move.file]?.Color)
-            return false; // same type of chess appears
-        if (new_move == (target.rank, target.file))
+
+        if (newMove == targetTile)
             return true; // Found, Both are not same
-        if (tiles[new_move.rank, new_move.file] is not null)
+
+        if (tiles[newMove.rank, newMove.file] is not null)
             return false; // Both are not same. But source can not go through to this chess
 
-        return FindChessCanMeetTarget(tiles, source, new_move, target, xDirection, yDirection);
+        return FindChessCanMeetTarget(tiles, sourceChess, newMove, targetTile, xDir, yDir);
     }
 
     public static bool Inbounds(int rank, int file)

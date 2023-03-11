@@ -27,21 +27,31 @@ public class ChessBoard : IChessBoard
         }
     }
 
-    IChessBoard IChessBoard.Add(in IChess item)
+    public IChessBoard Add(IChess item)
     {
+        if (_tiles[item.Rank, item.File] is not null)
+            throw new InvalidOperationException(
+                $"Chess location is [{item.Rank}, {item.File}]" +
+                $"which is already occupied by another chess.");
+
         _tiles[item.Rank, item.File] = item;
 
         return this;
     }
 
-    public IChessBoard Add(in IChess item, int rank, int file)
+    public IChessBoard Put(IChess item, int rank, int file)
     {
+        if (_tiles[rank, file] is not null)
+            throw new InvalidOperationException(
+                $"New location is [{rank}, {file}]" +
+                $"which is already occupied by another chess.");
+
         _tiles[rank, file] = item;
 
         return this;
     }
 
-    IChessBoard IChessBoard.Remove(int rank, int file)
+    public IChessBoard Remove(int rank, int file)
     {
         _tiles[rank, file] = null;
 

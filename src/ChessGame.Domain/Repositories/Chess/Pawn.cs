@@ -10,33 +10,47 @@ public class Pawn : Chess
         _initialPosition = (rank, file);
     }
 
-    public override bool IsMoveable(in IChessCore[,] tiles, int targetRank, int targetFile)
+    public override bool IsMoveable(IChessCore[,] tiles, (int rank, int file) destination)
     {
-        var (xAxis, yAxis) = GetWhichDirectionToMove();
+        int[] xDir;
+        int[] yDir;
 
-        return ChessPathValidator.FindChessCanMeetTarget(tiles, this, (targetRank, targetFile),
-            xAxis.ToArray(), yAxis.ToArray());
+        if (Color == ChessColor.White)
+            (xDir, yDir) = GetWhitePawnDirection();
+        else
+            (xDir, yDir) = GetBlackPawnDirection();
+
+        return ChessPathValidator.FindChessCanMeetTarget(tiles, this,
+            destination, xDir, yDir);
     }
 
-    private (IList<int> X, IList<int> Y) GetWhichDirectionToMove()
+    private (int[], int[]) GetWhitePawnDirection()
     {
         // White Pawn can go only to these directions.
-        IList<int> x = new List<int> { +1, +1, +1 }; // For white pawn
-        IList<int> y = new List<int> { +0, +1, -1 }; // For white pawn
+        IList<int> x = new List<int> { +1, +1, +1 };
+        IList<int> y = new List<int> { +0, +1, -1 };
 
         if ((Rank, File) == _initialPosition)
         {
-            x.Add(+2);  // For white pawn
-            y.Add(+0);  // For white pawn
+            x.Add(+2);
+            y.Add(+0);
         }
 
-        // For black pawn directions will be negative.
-        for (var i = 0; i < x.Count && Color == ChessColor.Black; ++i)
+        return (x.ToArray(), y.ToArray());
+    }
+
+    private (int[], int[]) GetBlackPawnDirection()
+    {
+        // White Pawn can go only to these directions.
+        IList<int> x = new List<int> { -1, -1, -1 };
+        IList<int> y = new List<int> { +0, -1, +1 };
+
+        if ((Rank, File) == _initialPosition)
         {
-            x[i] *= -1;
-            y[i] *= -1;
+            x.Add(-2);
+            y.Add(+0);
         }
 
-        return (x, y);
+        return (x.ToArray(), y.ToArray());
     }
 }

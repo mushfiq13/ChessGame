@@ -2,7 +2,7 @@
 
 internal class ConsoleInput : IConsoleInput
 {
-    public object ReadTileLocation()
+    public string Reader()
     {
         return Console.ReadLine();
     }

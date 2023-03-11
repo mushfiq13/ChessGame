@@ -6,26 +6,28 @@ public abstract class Chess : IChess
     public int File { get; private set; }
     public ChessColor Color { get; }
     public string Unicode { get; }
-    public bool IsKilled
-    {
-        get
-        {
-            return ChessPathValidator.Inbounds(Rank, File) is false;
-        }
-    }
 
     public Chess(ChessColor color, string unicode, int rank, int file)
     {
+
+        if (ChessPathValidator.Inbounds(rank, file) == false
+            || unicode is null
+            || unicode.Trim() == string.Empty)
+            throw new InvalidDataException();
+
         Rank = rank;
         File = file;
         Color = color;
         Unicode = unicode;
     }
 
-    public void Set(int newRank, int newFile)
+    public void Put(int rank, int file)
     {
-        Rank = newRank;
-        File = newFile;
+        if (ChessPathValidator.Inbounds(rank, file) == false)
+            throw new InvalidDataException();
+
+        Rank = rank;
+        File = file;
     }
 
     public void Kill()
@@ -34,5 +36,5 @@ public abstract class Chess : IChess
         File = -1;
     }
 
-    public abstract bool IsMoveable(in IChessCore[,] tiles, int targetRank, int targetFile);
+    public abstract bool IsMoveable(IChessCore[,] tiles, (int rank, int file) destination);
 }

@@ -2,9 +2,7 @@
 
 public interface IChess : IChessCore
 {
-    bool IsKilled { get; }
-
     void Kill();
-    void Set(int newRank, int newFile);
-    bool IsMoveable(in IChessCore[,] tiles, int targetRank, int targetFile);
+    void Put(int rank, int file);
+    bool IsMoveable(IChessCore[,] tiles, (int rank, int file) destination);
 }

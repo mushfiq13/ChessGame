@@ -4,14 +4,32 @@ internal class Capturer : ICapturer
 {
     public (int, int) Capture()
     {
-        Singleton.ConsoleMessages.WriteMessage("Enter rank and file ->");
+        try
+        {
+            Singleton.Logger.Write("Enter rank: ");
+            var rank = ReadAndExtractDigit();
 
-        var input = Singleton.ConsoleInput.CaptureTile() as string;
-        var parts = input?.Where(ch => ch != ' ')?.ToArray();
+            Singleton.Logger.Write("Enter file: ");
+            var file = ReadAndExtractDigit();
 
-        if (parts?.Length == 2 && char.IsDigit(parts[0]) && char.IsDigit(parts[1]))
-            return (parts[0] - '0', parts[1] - '0');
+            return (rank, file);
+        }
+        catch
+        {
+            Singleton.Logger.LogError("Could not get any valid data!");
+        }
 
         return (-1, -1);
+    }
+
+    private int ReadAndExtractDigit()
+    {
+        var input = Singleton.IO.Input.Reader();
+        var charArray = input?.Trim().ToCharArray();
+
+        if (charArray.Length == 1)
+            return charArray[0] - '0';
+
+        throw new InvalidDataException();
     }
 }

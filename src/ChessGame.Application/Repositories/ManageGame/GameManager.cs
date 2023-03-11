@@ -4,7 +4,7 @@ namespace ChessGame.Application;
 
 public class GameManager : IGameManager
 {
-    IGenerateChess _generateChess = Factory.CreateChessCreator();
+    IChessSetCreator _generateChess = Factory.CreateChessSetCreator();
     IGameServer _gameServer = Factory.CreateGameServer();
 
     public IList<IChess> WhiteChessSet { get; private set; }
@@ -12,8 +12,8 @@ public class GameManager : IGameManager
 
     public GameManager()
     {
-        WhiteChessSet = _generateChess.CreateChessSet(ChessColor.White);
-        BlackChessSet = _generateChess.CreateChessSet(ChessColor.Black);
+        WhiteChessSet = _generateChess.Create(ChessColor.White);
+        BlackChessSet = _generateChess.Create(ChessColor.Black);
     }
 
     public void Play()
@@ -27,17 +27,16 @@ public class GameManager : IGameManager
     {
         if (_gameServer.Winner is not null)
         {
-            Singleton.ConsoleMessages.WriteMessage("\n\nCongratulations!");
-            Singleton.ConsoleMessages.WriteMessage($"{(_gameServer.Winner.Color
+            Singleton.Logger.LogInformation("Congratulations!");
+            Singleton.Logger.LogInformation($"{(_gameServer.Winner.Color
                 == ChessColor.White ? "White" : "Black")} Chess player won.");
         }
         else
         {
-            Singleton.ConsoleMessages.WriteMessage("\n\nUnfortunately the game ended with Draw!");
+            Singleton.Logger.LogInformation("Unfortunately the game ended with Draw!");
         }
 
-        Singleton.ConsoleMessages.WriteMessage("Closing Application...");
-        Singleton.ConsoleMessages.EndApplication();
+        Singleton.Logger.LogInformation("Closing Application...");
     }
 
     private void SetupChessIntoBoard()

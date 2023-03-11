@@ -10,8 +10,8 @@ internal class ChessHandler : IChessHandler
 
         Singleton.ChessBoard
             .Remove(item.Rank, item.File)
-            .Add(item, newRank, newFile);
-        item.Set(newRank, newFile);
+            .Put(item, newRank, newFile);
+        item.Put(newRank, newFile);
 
         return true;
     }

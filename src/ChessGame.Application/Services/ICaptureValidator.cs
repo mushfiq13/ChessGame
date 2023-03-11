@@ -4,5 +4,5 @@ namespace ChessGame.Application;
 
 internal interface ICaptureValidator
 {
-    bool Validate(int? rank, int? file, Predicate<ChessColor?>? validator);
+    bool Validate(int rank, int file, Predicate<ChessColor?>? validator);
 }

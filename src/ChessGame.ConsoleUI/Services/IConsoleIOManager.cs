@@ -1,8 +1,7 @@
 ﻿namespace ChessGame.ConsoleUI;
 
-public interface IConsoleManager
+public interface IConsoleIOManager
 {
     IConsoleInput Input { get; }
-    IConsoleMessager Messager { get; }
     IConsoleOutput Output { get; }
 }
