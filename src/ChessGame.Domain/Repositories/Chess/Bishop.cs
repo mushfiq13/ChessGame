@@ -7,13 +7,13 @@ public class Bishop : Chess
     {
     }
 
-    public override bool IsMoveable(IChessCore[,] tiles, (int rank, int file) destination)
+    public override bool IsMoveable(IChessCore[,] tiles, (int rank, int file) targetTile)
     {
         // Bishop can go only to these directoins.
         var xDir = new[] { +1, +1, -1, -1 };
         var yDir = new[] { +1, -1, +1, -1 };
 
-        return ChessPathValidator.FindChessCanMeetTarget(tiles, this,
-            destination, xDir, yDir);
+        return ChessPathValidator.FindChessCanMeetTarget(tiles, this, targetTile,
+            xDir, yDir);
     }
 }

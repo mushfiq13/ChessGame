@@ -36,5 +36,5 @@ public abstract class Chess : IChess
         File = -1;
     }
 
-    public abstract bool IsMoveable(IChessCore[,] tiles, (int rank, int file) destination);
+    public abstract bool IsMoveable(IChessCore[,] tiles, (int rank, int file) targetTile);
 }

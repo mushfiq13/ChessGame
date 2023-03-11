@@ -11,7 +11,7 @@ internal class ChessPathValidator
         for (var i = 0; i < xDir.Length; ++i)
         {
             if (FindChessCanMeetTarget(tiles,
-                sourceChess,
+                sourceChess?.Color,
                 currentTile: (sourceChess.Rank, sourceChess.File),
                 targetTile,
                 xDir[i],
@@ -23,25 +23,25 @@ internal class ChessPathValidator
     }
 
     public static bool FindChessCanMeetTarget(IChessCore[,] tiles,
-        IChessCore sourceChess,
+        ChessColor? restrictedColor,
         (int rank, int file) currentTile,
         (int rank, int file) targetTile,
         int xDir,
         int yDir)
     {
-        (int rank, int file) newMove = (currentTile.rank + xDir, currentTile.file + yDir);
+        (int rank, int file) nextMove = (currentTile.rank + xDir, currentTile.file + yDir);
 
-        if (Inbounds(newMove.rank, newMove.file) == false
-            || sourceChess?.Color == tiles[newMove.rank, newMove.file]?.Color) // same type of chess appears
+        if (Inbounds(nextMove.rank, nextMove.file) == false
+            || restrictedColor == tiles[nextMove.rank, nextMove.file]?.Color) // same type of chess appears
             return false;
 
-        if (newMove == targetTile)
-            return true; // Found, Both are not same
+        if (nextMove == targetTile)
+            return true; // Found, source and target are not same
 
-        if (tiles[newMove.rank, newMove.file] is not null)
-            return false; // Both are not same. But source can not go through to this chess
+        if (tiles[nextMove.rank, nextMove.file] is not null)
+            return false; // source and target are not same. But source can not go through to this chess
 
-        return FindChessCanMeetTarget(tiles, sourceChess, newMove, targetTile, xDir, yDir);
+        return FindChessCanMeetTarget(tiles, restrictedColor, nextMove, targetTile, xDir, yDir);
     }
 
     public static bool Inbounds(int rank, int file)

@@ -11,8 +11,8 @@ internal class CaptureProcessor : ICaptureProcessor
 
     public (IChess sourceChess, (int rank, int file) targetTile) Run(ChessColor movingColor)
     {
-        Singleton.Logger.Log("\n");
-        Singleton.Logger.LogInformation("Please choose a moveable chess.");
+        Singleton.Logger.Write("\n");
+        Singleton.Logger.LogInformation("Please choose a moveable chess.\n");
         var sourceTile = _sourceTileCaptureHandler.HandleCapturing(movingColor);
 
         if (sourceTile.rank == -1 || sourceTile.file == -1)
@@ -20,8 +20,8 @@ internal class CaptureProcessor : ICaptureProcessor
 
         var sourceChess = Singleton.ChessBoard[sourceTile.rank, sourceTile.file];
 
-        Singleton.Logger.Log("\n");
-        Singleton.Logger.LogInformation("Please choose a target tile.");
+        Singleton.Logger.Write("\n");
+        Singleton.Logger.LogInformation("Please choose a target tile.\n");
         var targetTile = _targetTileCaptureHandler.HandleCapturing(sourceChess, movingColor);
 
         return (sourceChess, targetTile);

@@ -7,12 +7,12 @@ public class Rook : Chess
     {
     }
 
-    public override bool IsMoveable(IChessCore[,] tiles, (int rank, int file) destination)
+    public override bool IsMoveable(IChessCore[,] tiles, (int rank, int file) targetTile)
     {
-        var toXDirection = new[] { +1, +0, -1, +0 };
-        var toYDirection = new[] { +0, +1, +0, -1 };
+        var xDir = new[] { +1, +0, -1, +0 };
+        var yDir = new[] { +0, +1, +0, -1 };
 
-        return ChessPathValidator.FindChessCanMeetTarget(tiles, this, (Rank, File),
-            toXDirection, toYDirection);
+        return ChessPathValidator.FindChessCanMeetTarget(tiles, this, targetTile,
+            xDir, yDir);
     }
 }

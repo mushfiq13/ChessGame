@@ -35,18 +35,24 @@ internal partial class ConsoleOutput : IConsoleOutput
         if (items == null)
             return this;
 
-        Console.Write($"\n{chessType} captured: ");
-
-        Console.BackgroundColor = ConsoleColor.DarkYellow;
+        Console.Write($"{chessType} captured: ");
 
         foreach (var item in items)
         {
-            Console.Write($"{item.GetType().GetProperty("Unicode")?.GetValue(item)} ");
+            Console.BackgroundColor = ConsoleColor.Green;
+            Console.ForegroundColor = item?.GetType()
+                .GetProperty("Color")
+                .GetValue(item)
+                .ToString()
+                .Contains("White", StringComparison.OrdinalIgnoreCase) is true
+                    ? ConsoleColor.White : ConsoleColor.Black;
+
+            Console.Write($"{item.GetType().GetProperty("Unicode")?.GetValue(item)}  ");
+
+            Console.ResetColor();
         }
 
-        Console.ResetColor();
         Console.WriteLine();
-        Console.WriteLine("---------------------------------------------");
 
         return this;
     }
