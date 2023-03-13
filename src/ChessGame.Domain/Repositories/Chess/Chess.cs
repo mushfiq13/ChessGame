@@ -1,6 +1,6 @@
 ﻿namespace ChessGame.Domain;
 
-public abstract class Chess : IChess
+internal abstract class Chess : IChess
 {
     public int Rank { get; private set; }
     public int File { get; private set; }

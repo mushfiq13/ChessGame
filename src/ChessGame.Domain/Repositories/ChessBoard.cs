@@ -1,12 +1,12 @@
 ﻿namespace ChessGame.Domain;
 
-public class ChessBoard : IChessBoard
+internal class ChessBoard : IChessBoard
 {
     IChess[,] _tiles;
 
     public IChess[,] Tiles => _tiles;
 
-    public ChessBoard(IChess[,] tiles) => _tiles = tiles;
+    public ChessBoard() => _tiles = new IChess[ChessConstants.RANKS, ChessConstants.FILES];
 
     public IChess this[int rank, int file]
     {
@@ -23,24 +23,29 @@ public class ChessBoard : IChessBoard
         }
         set
         {
-            _tiles[rank, file] = value;
+            Put(value, rank, file);
         }
     }
 
-    public IChessBoard Add(IChess item)
+    public IChessBoard Add(params IChess[] item)
     {
-        if (_tiles[item.Rank, item.File] is not null)
-            throw new InvalidOperationException(
-                $"Chess location is [{item.Rank}, {item.File}]" +
-                $"which is already occupied by another chess.");
+        foreach (var chess in item)
+        {
+            if (_tiles[chess.Rank, chess.File] is not null)
+                throw new InvalidOperationException(
+                    $"Chess location is [{chess.Rank}, {chess.File}]" +
+                    $"which is already occupied by another chess.");
 
-        _tiles[item.Rank, item.File] = item;
+            _tiles[chess.Rank, chess.File] = chess;
+        }
 
         return this;
     }
 
     public IChessBoard Put(IChess item, int rank, int file)
     {
+        Remove(rank, file);
+
         if (_tiles[rank, file] is not null)
             throw new InvalidOperationException(
                 $"New location is [{rank}, {file}]" +
@@ -51,12 +56,10 @@ public class ChessBoard : IChessBoard
         return this;
     }
 
-    public IChessBoard Remove(int rank, int file)
+    public void Remove(int rank, int file)
     {
         _tiles[rank, file] = null;
-
-        return this;
     }
 
-    public void Clear() => _tiles = default;
+    public void Clear() => _tiles = new IChess[ChessConstants.RANKS, ChessConstants.FILES];
 }

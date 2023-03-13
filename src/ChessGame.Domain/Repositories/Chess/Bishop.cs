@@ -1,6 +1,6 @@
 ﻿namespace ChessGame.Domain;
 
-public class Bishop : Chess
+internal class Bishop : Chess
 {
     public Bishop(ChessColor color, string unicode, int rank, int file)
         : base(color, unicode, rank, file)

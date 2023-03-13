@@ -1,6 +1,6 @@
 ﻿namespace ChessGame.ConsoleUI;
 
-public class Logger : ILogger
+internal class Logger : ILogger
 {
     public void Write(string text)
     {

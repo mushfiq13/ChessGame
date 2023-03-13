@@ -1,6 +1,6 @@
 ﻿namespace ChessGame.Domain;
 
-public class Rook : Chess
+internal class Rook : Chess
 {
     public Rook(ChessColor color, string unicode, int rank, int file)
         : base(color, unicode, rank, file)

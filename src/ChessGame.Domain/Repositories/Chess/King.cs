@@ -1,6 +1,6 @@
 ﻿namespace ChessGame.Domain;
 
-public class King : Chess
+internal class King : Chess
 {
     public King(ChessColor color, string unicode, int rank, int file)
         : base(color, unicode, rank, file)

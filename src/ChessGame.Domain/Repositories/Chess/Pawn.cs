@@ -1,6 +1,6 @@
 ﻿namespace ChessGame.Domain;
 
-public class Pawn : Chess
+internal class Pawn : Chess
 {
     (int, int) _initialPosition;
 

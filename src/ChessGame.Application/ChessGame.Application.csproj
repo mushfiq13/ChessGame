@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Repositories\OutputHandling\**" />
+    <EmbeddedResource Remove="Repositories\OutputHandling\**" />
+    <None Remove="Repositories\OutputHandling\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ChessGame.ConsoleUI\ChessGame.ConsoleUI.csproj" />
     <ProjectReference Include="..\ChessGame.Domain\ChessGame.Domain.csproj" />    
   </ItemGroup>
