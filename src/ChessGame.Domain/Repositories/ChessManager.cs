@@ -2,14 +2,15 @@
 
 public class ChessManager : IChessManager
 {
-    IFactory _factory = new Factory();
+    IFactory _factory;
 
     public IChessBoard ChessBoard { get; }
     public IBoardGenerator BoardGenerator { get; }
 
     public ChessManager()
     {
-        ChessBoard = _factory.GetChessBoard();
-        BoardGenerator = _factory.GetBoardGenerator();
+        _factory = new Factory();
+        ChessBoard = _factory.CreateChessBoard();
+        BoardGenerator = _factory.CreateBoardGenerator();
     }
 }

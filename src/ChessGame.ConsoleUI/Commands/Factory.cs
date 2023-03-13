@@ -1,8 +1,10 @@
 ﻿namespace ChessGame.ConsoleUI;
 
-internal static class Factory
+internal class Factory : IFactory
 {
-    public static IConsoleInput CreateConsoleInput() => new ConsoleInput();
+    public IConsoleInput CreateConsoleInput() => new ConsoleInput();
 
-    public static IConsoleOutput CreateConsoleOutput() => new ConsoleOutput();
+    public IConsoleOutput CreateConsoleOutput() => new ConsoleOutput();
+
+    public ILogger CreateLogger() => new Logger();
 }

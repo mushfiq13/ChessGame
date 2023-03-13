@@ -2,8 +2,17 @@
 
 public class ConsoleUIManager : IConsoleUIManager
 {
-    public ILogger Logger { get; } = new Logger();
-    public IConsoleInput ConsoleInput { get; } = new ConsoleInput();
-    public IConsoleOutput ConsoleOutput { get; } = new ConsoleOutput();
+    IFactory _factory = new Factory();
+
+    public ILogger Logger { get; }
+    public IConsoleInput ConsoleInput { get; }
+    public IConsoleOutput ConsoleOutput { get; }
+
+    public ConsoleUIManager()
+    {
+        Logger = _factory.CreateLogger();
+        ConsoleInput = _factory.CreateConsoleInput();
+        ConsoleOutput = _factory.CreateConsoleOutput();
+    }
 }
 

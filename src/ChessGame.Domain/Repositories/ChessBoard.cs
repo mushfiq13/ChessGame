@@ -6,7 +6,8 @@ internal class ChessBoard : IChessBoard
 
     public IChess[,] Tiles => _tiles;
 
-    public ChessBoard() => _tiles = new IChess[ChessConstants.RANKS, ChessConstants.FILES];
+    public ChessBoard()
+        => _tiles = new IChess[ChessConstants.RANKS, ChessConstants.FILES];
 
     public IChess this[int rank, int file]
     {
@@ -44,12 +45,10 @@ internal class ChessBoard : IChessBoard
 
     public IChessBoard Put(IChess item, int rank, int file)
     {
-        Remove(rank, file);
-
-        if (_tiles[rank, file] is not null)
+        if (item?.Color == _tiles[rank, file]?.Color)
             throw new InvalidOperationException(
                 $"New location is [{rank}, {file}]" +
-                $"which is already occupied by another chess.");
+                $"which is already occupied by same type of chess.");
 
         _tiles[rank, file] = item;
 
@@ -57,9 +56,8 @@ internal class ChessBoard : IChessBoard
     }
 
     public void Remove(int rank, int file)
-    {
-        _tiles[rank, file] = null;
-    }
+        => _tiles[rank, file] = null;
 
-    public void Clear() => _tiles = new IChess[ChessConstants.RANKS, ChessConstants.FILES];
+    public void Clear()
+        => _tiles = new IChess[ChessConstants.RANKS, ChessConstants.FILES];
 }

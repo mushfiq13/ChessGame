@@ -5,8 +5,8 @@ namespace ChessGame.Application;
 
 internal class TargetTileCapturer : ITargetTileCapturer
 {
-    private readonly ILogger _logger;
-    private readonly ICaptureHandler _captureHandler;
+    ILogger _logger;
+    ICaptureHandler _captureHandler;
 
     public TargetTileCapturer(ILogger logger, ICaptureHandler captureHandler)
     {
@@ -23,6 +23,6 @@ internal class TargetTileCapturer : ITargetTileCapturer
         _logger.LogInformation("Please choose a target tile.\n");
 
         return _captureHandler.Handle(customTargetTileValidator,
-            (target) => sourceChess.IsMoveable(board.Tiles, target));
+            (target) => sourceChess.CanMove(board.Tiles, target));
     }
 }

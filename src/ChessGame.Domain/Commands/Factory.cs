@@ -2,9 +2,13 @@
 
 internal class Factory : IFactory
 {
-    public IChessBoard GetChessBoard() => new ChessBoard();
-    public IBoardGenerator GetBoardGenerator()
+    public IChessBoard CreateChessBoard() => new ChessBoard();
+
+    public IBoardGenerator CreateBoardGenerator()
         => new BoardGenerator(CreateChessFactory());
+
+    public IChessValidator CreateChessValidator()
+        => new ChessValidator();
 
     private IChessFactory CreateChessFactory() => new ChessFactory();
 }

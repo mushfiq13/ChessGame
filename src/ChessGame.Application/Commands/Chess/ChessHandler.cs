@@ -4,7 +4,7 @@ namespace ChessGame.Application;
 
 internal class ChessHandler : IChessHandler
 {
-    private readonly IChessBoard _board;
+    IChessBoard _board;
 
     public ChessHandler(IChessBoard board)
     {
@@ -14,29 +14,23 @@ internal class ChessHandler : IChessHandler
     public IChess HandleCurrentTurn(IChess sourceChess, int newRank, int newFile)
     {
         if (sourceChess is null) return null;
-
-        IChess killedItem = null;
-
-        if (sourceChess.IsMoveable(_board.Tiles, (newRank, newFile)) is false)
+        if (sourceChess.CanMove(_board.Tiles, (newRank, newFile)) is false)
             throw new InvalidOperationException("Chess is not moveable!");
 
-        if (_board[newRank, newFile] is not null)
+        IChess opponent = _board[newRank, newFile];
+
+        if (opponent is not null)
         {
-            killedItem = _board[newRank, newFile];
-            Kill(_board[newRank, newFile]);
+            // opponent killing
+            _board.Remove(opponent.Rank, opponent.File);
+            opponent.Kill();
         }
 
+        // Move source chess
+        _board.Remove(sourceChess.Rank, sourceChess.File);
         _board.Put(sourceChess, newRank, newFile);
         sourceChess.Put(newRank, newFile);
 
-        return killedItem;
-    }
-
-    private void Kill(IChess item)
-    {
-        if (item is null) return;
-
-        _board.Remove(item.Rank, item.File);
-        item.Kill();
+        return opponent;
     }
 }

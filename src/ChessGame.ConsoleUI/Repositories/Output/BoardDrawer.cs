@@ -41,17 +41,6 @@ internal partial class ConsoleOutput
         return this;
     }
 
-    private void Colorize(object obj, ConsoleColor consoleBackgroundColor = ConsoleColor.Green)
-    {
-        Console.BackgroundColor = consoleBackgroundColor;
-        Console.ForegroundColor = obj?.GetType()
-            .GetProperty("Color")
-            .GetValue(obj)
-            .ToString()
-            .Contains("White", StringComparison.OrdinalIgnoreCase) is true
-                ? ConsoleColor.White : ConsoleColor.Black;
-    }
-
     private string FormatTile(object? obj = null)
     {
         var padding = new string(' ', 3);

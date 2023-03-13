@@ -1,6 +1,6 @@
 ﻿namespace ChessGame.Application;
 
-public interface IGameExecutor
+internal interface IGameExecutor
 {
     void Play();
 }

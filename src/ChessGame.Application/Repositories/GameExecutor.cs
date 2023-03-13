@@ -13,7 +13,7 @@ internal class GameExecutor : IGameExecutor
 
     public IList<IChess> Captured { get; private set; } = new List<IChess>();
     public bool WhiteInTurn { get; private set; } = true;
-    public IChessCore? Winner { get; private set; }
+    public IChessBase? Winner { get; private set; }
 
     public GameExecutor(
         IChessManager chessManager,
@@ -31,36 +31,39 @@ internal class GameExecutor : IGameExecutor
 
     public void Play()
     {
-        var movingColor = WhiteInTurn ? ChessColor.White : ChessColor.Black;
-
-        _outputHandler.DisplayOutput(movingColor,
-            _chessManager.ChessBoard.Tiles,
-            Captured.ToArray());
-
-        var capturedData = _captureProcessor.Process(movingColor);
-        var sourceChess = capturedData.sourceChess;
-        var targetTile = capturedData.targetTile;
-
-        if (targetTile.rank == -1 || targetTile.file == -1)
+        while (true)
         {
-            return;
+            var movingColor = WhiteInTurn ? ChessColor.White : ChessColor.Black;
+
+            _outputHandler.DisplayOutput(movingColor,
+                _chessManager.ChessBoard.Tiles,
+                Captured.ToArray());
+
+            var capturedData = _captureProcessor.Process(movingColor);
+            var sourceChess = capturedData.sourceChess;
+            var targetTile = capturedData.targetTile;
+
+            if (targetTile.rank == -1 || targetTile.file == -1)
+            {
+                return;
+            }
+
+            var killedItem = _chessHandler.HandleCurrentTurn(sourceChess,
+                targetTile.rank,
+                targetTile.file);
+
+            if (killedItem is not null)
+            {
+                Captured.Add(killedItem);
+            }
+            //Winner = ChessDataGetter.IsKingsUnicode(targetChess?.Unicode)
+            //    ? sourceChess : null;
+
+            TogglePlayer();
+            _uIManager.Logger.Log("\nUpdating...");
+            Thread.Sleep(1 * 2000);
+            _uIManager.ConsoleOutput.ResetConsole();
         }
-
-        var killedItem = _chessHandler.HandleCurrentTurn(sourceChess,
-            targetTile.rank,
-            targetTile.file);
-
-        if (killedItem is not null)
-        {
-            Captured.Add(killedItem);
-        }
-        //Winner = ChessDataGetter.IsKingsUnicode(targetChess?.Unicode)
-        //    ? sourceChess : null;
-
-        TogglePlayer();
-        _uIManager.Logger.Log("\nUpdating...");
-        Thread.Sleep(1 * 2000);
-        _uIManager.ConsoleOutput.ResetConsole();
     }
 
     private void TogglePlayer() => WhiteInTurn = !WhiteInTurn;

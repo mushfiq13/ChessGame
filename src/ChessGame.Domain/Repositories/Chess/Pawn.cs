@@ -10,7 +10,7 @@ internal class Pawn : Chess
         _initialPosition = (rank, file);
     }
 
-    public override bool IsMoveable(IChessCore[,] tiles, (int rank, int file) targetTile)
+    public override bool CanMove(IChessBase[,] tiles, (int rank, int file) targetTile)
     {
         int[] xDir;
         int[] yDir;
@@ -20,18 +20,12 @@ internal class Pawn : Chess
         else
             (xDir, yDir) = GetBlackPawnDirection();
 
-        for (var i = 0; i < xDir.Length; ++i)
-        {
-            var nextRank = Rank + xDir[i];
-            var nextFile = File + yDir[i];
-
-            if (nextRank == targetTile.rank
-                && nextFile == targetTile.file
-                && tiles[nextRank, nextFile]?.Color != Color)
-                return true;
-        }
-
-        return false;
+        return _chessValidator.canSourceChessMoveToTargetTile(tiles,
+            this,
+            targetTile,
+            xDir,
+            yDir,
+            1);
     }
 
     private (int[], int[]) GetWhitePawnDirection()

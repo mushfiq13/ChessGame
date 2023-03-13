@@ -2,6 +2,8 @@
 
 internal abstract class Chess : IChess
 {
+    protected IChessValidator _chessValidator;
+
     public int Rank { get; private set; }
     public int File { get; private set; }
     public ChessColor Color { get; }
@@ -9,8 +11,9 @@ internal abstract class Chess : IChess
 
     public Chess(ChessColor color, string unicode, int rank, int file)
     {
+        _chessValidator = (new Factory()).CreateChessValidator();
 
-        if (ChessPathValidator.Inbounds(rank, file) == false
+        if (_chessValidator.Inbounds(rank, file) == false
             || unicode is null
             || unicode.Trim() == string.Empty)
             throw new InvalidDataException();
@@ -23,7 +26,7 @@ internal abstract class Chess : IChess
 
     public void Put(int rank, int file)
     {
-        if (ChessPathValidator.Inbounds(rank, file) == false)
+        if (_chessValidator.Inbounds(rank, file) == false)
             throw new InvalidDataException();
 
         Rank = rank;
@@ -36,5 +39,5 @@ internal abstract class Chess : IChess
         File = -1;
     }
 
-    public abstract bool IsMoveable(IChessCore[,] tiles, (int rank, int file) targetTile);
+    public abstract bool CanMove(IChessBase[,] tiles, (int rank, int file) targetTile);
 }
