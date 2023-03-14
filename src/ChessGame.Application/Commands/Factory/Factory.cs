@@ -5,26 +5,16 @@ namespace ChessGame.Application;
 
 internal class Factory : IFactory
 {
-    private readonly IChessServiceProvider _chessServices;
     private readonly IConsoleServiceProvider _consoleServices;
 
-    private IChessBoard _chessBoard = default;
     private IGameExecutor _gameExecutor = default;
     private IChessHandler _chessHandler = default;
     private IOutputHandler _outputHandler = default;
     private ICaptureProcessor _captureProcessor = default;
 
-    public Factory(IChessServiceProvider chessServices, IConsoleServiceProvider consoleServices)
+    public Factory(IConsoleServiceProvider consoleServices)
     {
-        _chessServices = chessServices;
         _consoleServices = consoleServices;
-    }
-
-    public IChessBoard CreateChessBoardInstance()
-    {
-        if (_chessBoard is not null) return _chessBoard;
-
-        return _chessBoard = _chessServices.CreateChessBoard();
     }
 
     public IGameExecutor GetGameExecutorInstance(IChessBoard board)

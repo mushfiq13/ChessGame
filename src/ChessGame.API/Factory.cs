@@ -4,6 +4,6 @@ namespace ChessGame.API;
 
 internal static class Factory
 {
-    public static IChessApplicationServiceProvider CreateChessApplication()
-        => new ChessApplicationServiceProvider();
+    public static IApplicationServiceProvider CreateChessApplication()
+        => new ApplicationServiceProvider();
 }
