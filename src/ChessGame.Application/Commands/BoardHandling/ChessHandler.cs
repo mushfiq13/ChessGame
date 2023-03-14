@@ -14,6 +14,7 @@ internal class ChessHandler : IChessHandler
     public IChess HandleCurrentTurn(IChess sourceChess, int newRank, int newFile)
     {
         if (sourceChess is null) return null;
+
         if (sourceChess.CanMove(_board.Tiles, (newRank, newFile)) is false)
             throw new InvalidOperationException("Chess is not moveable!");
 

@@ -19,7 +19,6 @@ internal class SourceChessCapturer : ISourceChessCapturer
         bool customSourceTileValidator(ChessColor? curTileColor)
             => movingColor == curTileColor;
 
-        _logger.Write("\n");
         _logger.LogInformation("Please choose a moveable chess.\n");
 
         var sourceTile = _captureHandler.Handle(customSourceTileValidator, null);

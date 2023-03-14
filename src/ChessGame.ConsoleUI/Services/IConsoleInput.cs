@@ -3,5 +3,4 @@
 public interface IConsoleInput
 {
     string Reader();
-    string ReadText();
 }

@@ -2,14 +2,13 @@
 
 internal class Logger : ILogger
 {
-    public void Write(string text)
-    {
-        Console.Write(text);
-    }
+    private static readonly Logger _instance = new Logger();
 
-    public void Log(string text)
+    private Logger() { }
+
+    public static ILogger GetInstance()
     {
-        Console.WriteLine(text);
+        return _instance;
     }
 
     public void LogInformation(string text)

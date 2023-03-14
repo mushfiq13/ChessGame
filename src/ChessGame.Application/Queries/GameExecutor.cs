@@ -5,8 +5,8 @@ namespace ChessGame.Application;
 
 internal class GameExecutor : IGameExecutor
 {
-    private readonly IChessServiceProvider _chessManager;
-    private readonly IConsoleUIManager _uIManager;
+    private readonly IChessBoard _board;
+    private readonly IConsoleOutput _consoleOutput;
     private readonly ICaptureProcessor _captureProcessor;
     private readonly IChessHandler _chessHandler;
     private readonly IOutputHandler _outputHandler;
@@ -16,14 +16,14 @@ internal class GameExecutor : IGameExecutor
     public IBoard2D? Winner { get; private set; }
 
     public GameExecutor(
-        IChessServiceProvider chessManager,
-        IConsoleUIManager uIManager,
+        IChessBoard board,
+        IConsoleOutput consoleOutput,
         ICaptureProcessor captureProcessor,
         IChessHandler chessHandler,
         IOutputHandler outputHandler)
     {
-        _chessManager = chessManager;
-        _uIManager = uIManager;
+        _board = board;
+        _consoleOutput = consoleOutput;
         _captureProcessor = captureProcessor;
         _chessHandler = chessHandler;
         _outputHandler = outputHandler;
@@ -36,7 +36,7 @@ internal class GameExecutor : IGameExecutor
             var movingColor = WhiteInTurn ? ChessColor.White : ChessColor.Black;
 
             _outputHandler.DisplayOutput(movingColor,
-                _chessManager.ChessBoard.Tiles,
+                _board.Tiles,
                 Captured.ToArray());
 
             var capturedData = _captureProcessor.Process(movingColor);
@@ -60,9 +60,9 @@ internal class GameExecutor : IGameExecutor
             //    ? sourceChess : null;
 
             TogglePlayer();
-            _uIManager.Logger.Log("\nUpdating...");
+            _consoleOutput.Write("\nUpdating...\n");
             Thread.Sleep(1 * 2000);
-            _uIManager.ConsoleOutput.ResetConsole();
+            _consoleOutput.ResetConsole();
         }
     }
 

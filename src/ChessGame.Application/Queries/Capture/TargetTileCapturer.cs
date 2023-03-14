@@ -19,7 +19,6 @@ internal class TargetTileCapturer : ITargetTileCapturer
         bool customTargetTileValidator(ChessColor? curTileColor)
             => movingColor != curTileColor;
 
-        _logger.Write("\n");
         _logger.LogInformation("Please choose a target tile.\n");
 
         return _captureHandler.Handle(customTargetTileValidator,

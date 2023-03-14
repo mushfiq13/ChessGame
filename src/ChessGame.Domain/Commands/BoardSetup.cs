@@ -22,7 +22,6 @@ internal class BoardSetup : IBoardSetup
         PutChesses(ref board, _chessFactory.CreateBishop());
         PutChesses(ref board, _chessFactory.CreateKnight());
         PutChesses(ref board, _chessFactory.CreatePawn());
-        PutChesses(ref board, _chessFactory.CreatePawn());
     }
 
     private void PutChesses(ref IChessBoard board, IChess[] chesses)

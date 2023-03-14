@@ -6,21 +6,23 @@ internal class CaptureData : ICaptureData
 {
     private readonly ILogger _logger;
     private readonly IConsoleInput _consoleInput;
+    private readonly IConsoleOutput _consoleOutput;
 
-    public CaptureData(ILogger logger, IConsoleInput consoleInput)
+    public CaptureData(ILogger logger, IConsoleInput consoleInput, IConsoleOutput consoleOutput)
     {
         _logger = logger;
         _consoleInput = consoleInput;
+        _consoleOutput = consoleOutput;
     }
 
     public (int, int) Capture()
     {
         try
         {
-            _logger.Write("Enter rank: ");
+            _consoleOutput.Write("Enter rank: ");
             var rank = ReadAndExtractDigit();
 
-            _logger.Write("Enter file: ");
+            _consoleOutput.Write("Enter file: ");
             var file = ReadAndExtractDigit();
 
             return (rank, file);

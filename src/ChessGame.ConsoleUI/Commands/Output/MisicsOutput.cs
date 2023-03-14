@@ -1,6 +1,6 @@
 ﻿namespace ChessGame.ConsoleUI;
 
-internal partial class ConsoleOutput : IConsoleOutput
+internal partial class ConsoleOutput
 {
     public IConsoleOutput PrintMenu()
     {

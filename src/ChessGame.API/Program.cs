@@ -3,6 +3,6 @@ using ChessGame.Application;
 
 Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-IChessApplication app = Factory.CreateChessApplication();
+IChessApplicationServiceProvider app = Factory.CreateChessApplication();
 
 app.Run();

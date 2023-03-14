@@ -1,6 +1,6 @@
 ﻿namespace ChessGame.Application;
 
-public interface IChessApplication
+public interface IChessApplicationServiceProvider
 {
     void Run();
 }
