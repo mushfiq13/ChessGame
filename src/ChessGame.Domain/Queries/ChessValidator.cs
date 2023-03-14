@@ -1,14 +1,14 @@
 ﻿namespace ChessGame.Domain;
 
-internal class ChessValidator : IChessValidator
+internal class ChessValidator : I2DChessValidator
 {
-    private static readonly IChessValidator _instance = new ChessValidator();
+    private static readonly I2DChessValidator _instance = new ChessValidator();
 
     private ChessValidator()
     {
     }
 
-    public static IChessValidator GetChessValidator()
+    public static I2DChessValidator GetChessValidator()
     {
         return _instance;
     }
@@ -18,7 +18,7 @@ internal class ChessValidator : IChessValidator
        (int rank, int file) targetTile,
        int[] xDir,
        int[] yDir,
-       int chessCanJumpAtMost = int.MaxValue)
+       int sourceChessCanJumpAtMost = int.MaxValue)
     {
         // Running BFS
 
@@ -32,7 +32,7 @@ internal class ChessValidator : IChessValidator
         {
             (int curRank, int curFile, int steps) = queue.Dequeue();
 
-            if (steps >= chessCanJumpAtMost) continue;
+            if (steps >= sourceChessCanJumpAtMost) continue;
 
             for (var i = 0; i < xDir.Length; i++)
             {
@@ -47,7 +47,7 @@ internal class ChessValidator : IChessValidator
                 if (tiles[nextRank, nextFile] is not null)
                     return false; // source and target are not same. But source can not go through to this chess                
 
-                if (steps < chessCanJumpAtMost)
+                if (steps < sourceChessCanJumpAtMost)
                 {
                     queue.Enqueue((nextRank, nextFile, steps + 1));
                     map[nextRank, nextFile] = 1;

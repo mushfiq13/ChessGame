@@ -1,12 +1,12 @@
 ﻿namespace ChessGame.Domain;
 
-internal interface IChessValidator
+internal interface I2DChessValidator
 {
     bool canSourceChessMoveToTargetTile(IChess[,] tiles,
         IChess sourceChess,
         (int rank, int file) targetTile,
         int[] xDir, int[] yDir,
-        int chessCanJumpAtMost = int.MaxValue);
+        int sourceChessCanJumpAtMost = int.MaxValue);
 
     bool Inbounds(int rank, int file);
 }

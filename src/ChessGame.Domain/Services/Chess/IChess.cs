@@ -1,6 +1,6 @@
 ﻿namespace ChessGame.Domain;
 
-public interface IChess : IBoard2D, IChessMoveable
+public interface IChess : IChessLocation, I2DChessMoveable
 {
     ChessColor Color { get; }
     string Unicode { get; }

@@ -1,6 +1,6 @@
 ﻿namespace ChessGame.Domain;
 
-public interface IBoard2D
+public interface IChessLocation
 {
     int Rank { get; }
     int File { get; }

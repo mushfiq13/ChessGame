@@ -2,7 +2,7 @@
 
 internal abstract class Chess : IChess
 {
-    protected IChessValidator _chessValidator = ChessValidator.GetChessValidator();
+    protected I2DChessValidator _chessValidator = ChessValidator.GetChessValidator();
 
     public int Rank { get; private set; }
     public int File { get; private set; }

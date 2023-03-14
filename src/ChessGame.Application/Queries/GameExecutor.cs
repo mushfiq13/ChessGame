@@ -12,8 +12,8 @@ internal class GameExecutor : IGameExecutor
     private readonly IOutputHandler _outputHandler;
 
     public IList<IChess> Captured { get; private set; } = new List<IChess>();
-    public bool WhiteInTurn { get; private set; } = true;
-    public IBoard2D? Winner { get; private set; }
+    public bool? WhiteInTurn { get; private set; } = null;
+    public IChess? Winner { get; private set; }
 
     public GameExecutor(
         IChessBoard board,
@@ -31,26 +31,26 @@ internal class GameExecutor : IGameExecutor
 
     public void Play()
     {
+        WhiteInTurn = true;
+
         while (true)
         {
-            var movingColor = WhiteInTurn ? ChessColor.White : ChessColor.Black;
+            var movingColor = (bool)WhiteInTurn ? ChessColor.White : ChessColor.Black;
 
             _outputHandler.DisplayOutput(movingColor,
                 _board.Tiles,
                 Captured.ToArray());
 
-            var capturedData = _captureProcessor.Process(movingColor);
-            var sourceChess = capturedData.sourceChess;
-            var targetTile = capturedData.targetTile;
+            (IChess sourceChess, (int tarRank, int tarFile)) = _captureProcessor.Process(movingColor);
 
-            if (targetTile.rank == -1 || targetTile.file == -1)
+            if (tarRank == -1 || tarFile == -1)
             {
-                return;
+                break;
             }
 
             var killedItem = _chessHandler.HandleCurrentTurn(sourceChess,
-                targetTile.rank,
-                targetTile.file);
+                tarRank,
+                tarFile);
 
             if (killedItem is not null)
             {
@@ -64,6 +64,8 @@ internal class GameExecutor : IGameExecutor
             Thread.Sleep(1 * 2000);
             _consoleOutput.ResetConsole();
         }
+
+        WhiteInTurn = null;
     }
 
     private void TogglePlayer() => WhiteInTurn = !WhiteInTurn;
