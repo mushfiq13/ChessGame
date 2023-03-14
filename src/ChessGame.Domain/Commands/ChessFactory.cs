@@ -2,6 +2,15 @@
 
 internal class ChessFactory : IChessFactory
 {
+    private static readonly IChessFactory _instance = new ChessFactory();
+
+    private ChessFactory()
+    {
+    }
+
+    public static IChessFactory GetChessFactory()
+        => _instance;
+
     public IChess[] CreateKing()
     {
         return new IChess[] {

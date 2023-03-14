@@ -2,8 +2,8 @@
 
 internal interface IChessValidator
 {
-    bool canSourceChessMoveToTargetTile(IChessBase[,] tiles,
-        IChessBase sourceChess,
+    bool canSourceChessMoveToTargetTile(IChess[,] tiles,
+        IChess sourceChess,
         (int rank, int file) targetTile,
         int[] xDir, int[] yDir,
         int chessCanJumpAtMost = int.MaxValue);

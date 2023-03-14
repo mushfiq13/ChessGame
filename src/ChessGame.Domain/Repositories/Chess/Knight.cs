@@ -7,7 +7,7 @@ internal class Knight : Chess
     {
     }
 
-    public override bool CanMove(IChessBase[,] tiles, (int rank, int file) targetTile)
+    public override bool CanMove(IChess[,] tiles, (int rank, int file) targetTile)
     {
         // Knight can go only to these directions.
         var xDir = new[] { +2, +1, -1, -2, -2, -1, +1, +2 };

@@ -9,7 +9,7 @@ namespace ChessGame.Application
         IChessHandler ChessHandler { get; }
         IGameExecutor GameExecutor { get; }
         IOutputHandler OutputHandler { get; }
-        IChessManager ChessManager { get; }
+        IChessServiceProvider ChessManager { get; }
         IConsoleUIManager ConsoleUIManager { get; }
     }
 }

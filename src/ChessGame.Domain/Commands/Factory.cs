@@ -2,13 +2,19 @@
 
 internal class Factory : IFactory
 {
+    private static readonly IFactory _instance = new Factory();
+    private readonly IBoardSetup _boardSetup = BoardSetup.GetBoardSetup();
+
+    private Factory()
+    {
+    }
+
+    public static IFactory GetServices()
+    {
+        return _instance;
+    }
+
     public IChessBoard CreateChessBoard() => new ChessBoard();
 
-    public IBoardGenerator CreateBoardGenerator()
-        => new BoardGenerator(CreateChessFactory());
-
-    public IChessValidator CreateChessValidator()
-        => new ChessValidator();
-
-    private IChessFactory CreateChessFactory() => new ChessFactory();
+    public IBoardSetup GetBoardSetup() => _boardSetup;
 }

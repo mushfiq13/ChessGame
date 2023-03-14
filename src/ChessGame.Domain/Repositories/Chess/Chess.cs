@@ -2,7 +2,7 @@
 
 internal abstract class Chess : IChess
 {
-    protected IChessValidator _chessValidator;
+    protected IChessValidator _chessValidator = ChessValidator.GetChessValidator();
 
     public int Rank { get; private set; }
     public int File { get; private set; }
@@ -11,8 +11,6 @@ internal abstract class Chess : IChess
 
     public Chess(ChessColor color, string unicode, int rank, int file)
     {
-        _chessValidator = (new Factory()).CreateChessValidator();
-
         if (_chessValidator.Inbounds(rank, file) == false
             || unicode is null
             || unicode.Trim() == string.Empty)
@@ -39,5 +37,5 @@ internal abstract class Chess : IChess
         File = -1;
     }
 
-    public abstract bool CanMove(IChessBase[,] tiles, (int rank, int file) targetTile);
+    public abstract bool CanMove(IChess[,] tiles, (int rank, int file) targetTile);
 }

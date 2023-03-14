@@ -9,12 +9,12 @@ internal class AppFactory : IAppFactory
     public ICaptureProcessor CaptureProcessor { get; }
     public IChessHandler ChessHandler { get; }
     public IOutputHandler OutputHandler { get; }
-    public IChessManager ChessManager { get; }
+    public IChessServiceProvider ChessManager { get; }
     public IConsoleUIManager ConsoleUIManager { get; }
 
     public AppFactory()
     {
-        ChessManager = new ChessManager();
+        ChessManager = new ChessServiceProvider();
         ConsoleUIManager = new ConsoleUIManager();
 
         CaptureProcessor = CreateCaptureProcessor();

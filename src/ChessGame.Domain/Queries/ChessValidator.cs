@@ -2,13 +2,26 @@
 
 internal class ChessValidator : IChessValidator
 {
-    public bool canSourceChessMoveToTargetTile(IChessBase[,] tiles,
-        IChessBase sourceChess,
+    private static readonly IChessValidator _instance = new ChessValidator();
+
+    private ChessValidator()
+    {
+    }
+
+    public static IChessValidator GetChessValidator()
+    {
+        return _instance;
+    }
+
+    public bool canSourceChessMoveToTargetTile(IChess[,] tiles,
+        IChess sourceChess,
        (int rank, int file) targetTile,
        int[] xDir,
        int[] yDir,
        int chessCanJumpAtMost = int.MaxValue)
     {
+        // Running BFS
+
         var queue = new Queue<(int, int, int)>();
         var map = new byte[ChessConstants.RANKS, ChessConstants.FILES];
 

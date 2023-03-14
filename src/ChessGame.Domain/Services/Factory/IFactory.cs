@@ -3,6 +3,5 @@
 internal interface IFactory
 {
     IChessBoard CreateChessBoard();
-    IBoardGenerator CreateBoardGenerator();
-    IChessValidator CreateChessValidator();
+    IBoardSetup GetBoardSetup();
 }

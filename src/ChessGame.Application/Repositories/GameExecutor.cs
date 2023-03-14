@@ -5,7 +5,7 @@ namespace ChessGame.Application;
 
 internal class GameExecutor : IGameExecutor
 {
-    private readonly IChessManager _chessManager;
+    private readonly IChessServiceProvider _chessManager;
     private readonly IConsoleUIManager _uIManager;
     private readonly ICaptureProcessor _captureProcessor;
     private readonly IChessHandler _chessHandler;
@@ -13,10 +13,10 @@ internal class GameExecutor : IGameExecutor
 
     public IList<IChess> Captured { get; private set; } = new List<IChess>();
     public bool WhiteInTurn { get; private set; } = true;
-    public IChessBase? Winner { get; private set; }
+    public IBoard2D? Winner { get; private set; }
 
     public GameExecutor(
-        IChessManager chessManager,
+        IChessServiceProvider chessManager,
         IConsoleUIManager uIManager,
         ICaptureProcessor captureProcessor,
         IChessHandler chessHandler,

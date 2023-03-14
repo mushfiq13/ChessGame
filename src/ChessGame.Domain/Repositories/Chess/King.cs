@@ -7,7 +7,7 @@ internal class King : Chess
     {
     }
 
-    public override bool CanMove(IChessBase[,] tiles, (int rank, int file) targetTile)
+    public override bool CanMove(IChess[,] tiles, (int rank, int file) targetTile)
     {
         // King can go only to these directions.
         var xDir = new[] { +1, +1, +0, -1, -1, -1, +0, +1 };

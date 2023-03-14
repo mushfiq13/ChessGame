@@ -10,7 +10,7 @@ internal class Pawn : Chess
         _initialPosition = (rank, file);
     }
 
-    public override bool CanMove(IChessBase[,] tiles, (int rank, int file) targetTile)
+    public override bool CanMove(IChess[,] tiles, (int rank, int file) targetTile)
     {
         int[] xDir;
         int[] yDir;

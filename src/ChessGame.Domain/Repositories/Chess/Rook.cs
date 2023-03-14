@@ -7,7 +7,7 @@ internal class Rook : Chess
     {
     }
 
-    public override bool CanMove(IChessBase[,] tiles, (int rank, int file) targetTile)
+    public override bool CanMove(IChess[,] tiles, (int rank, int file) targetTile)
     {
         var xDir = new[] { +1, +0, -1, +0 };
         var yDir = new[] { +0, +1, +0, -1 };
